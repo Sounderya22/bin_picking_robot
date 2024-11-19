@@ -1,4 +1,4 @@
-# Intelligent Bin Picking robot
+# Intelligent Bin-Picking Robot
 This repository contains the deliverables for the Final Project of the course **ENPM700: Software Development for Robotics**
 
 ## Project Contributor
@@ -6,8 +6,7 @@ This repository contains the deliverables for the Final Project of the course **
 ## Project Overview
 This project proposes an intelligent bin-picking robot system capable of autonomously identifying, grasping, and sorting objects from mixed bins into designated locations. This system will leverage computer vision techniques for object detection and pose detection to enable flexible and efficient picking of various objects in unstructured environments. The prototype will demonstrate core capabilities needed for applications in e-commerce fulfillment, manufacturing part handling, and recycling sorting.
 ## UML
-### Activity diagram
-### Structure
+The initial diagrams can be found [here](https://github.com/Sounderya22/bin_picking_robot/blob/main/UML)
 ## Product backlog
 The product backlog can be found [here](https://docs.google.com/spreadsheets/d/1wQ6pgUYoGXRp1mh41GRJHmEXWiqDkCSuNnBmpH75Bwg/edit?usp=sharing).
 ## Sprint Planning
