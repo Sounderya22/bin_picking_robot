@@ -8,7 +8,7 @@ This project proposes an intelligent bin-picking robot system capable of autonom
 ## UML
 The initial diagrams can be found [here](https://github.com/Sounderya22/bin_picking_robot/blob/main/UML/initial)
 ## Product backlog
-The product backlog can be found [here](https://docs.google.com/spreadsheets/d/1wQ6pgUYoGXRp1mh41GRJHmEXWiqDkCSuNnBmpH75Bwg/edit?usp=sharing).
+The product backlog can be found [here](https://docs.google.com/spreadsheets/d/1dOl7ko8kiRCL01SYXUkV1blOiVYMngp9uYMhj_psIf0/edit?usp=sharing).
 ## Sprint Planning
 The sprint planning sheet can be found [here](https://docs.google.com/document/d/1k97gEPnfccyWxz8z-w4MMVNBKQnhrrpmbxowb54gQMY/edit?usp=sharing).
 ## Dependencies with license
