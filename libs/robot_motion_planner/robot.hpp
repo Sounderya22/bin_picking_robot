@@ -4,6 +4,14 @@
 #include <string>
 #include <vector>
 
+struct Pose {
+    double x;
+    double y;
+    double z;
+    double roll;
+    double pitch;
+    double yaw;
+};
 
 // Robot class
 class Robot {
@@ -15,13 +23,13 @@ public:
     ~Robot();
 
     // Method to move the robot to a specified position
-    bool moveToPosition(const std::vector<double>& position);
+    bool moveToPosition(const Pose position);
 
     // Method to pick an object
-    bool pickObject();
+    bool pickObject(const Pose position);
 
     // Method to place an object
-    bool placeObject(const std::vector<double>& position);
+    bool placeObject(const Pose position);
 
 private:
     // Robot components
