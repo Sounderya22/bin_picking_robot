@@ -13,16 +13,16 @@ Robot::~Robot() {
 }
 
 // Method to move the robot to a specified position
-bool Robot::moveToPosition(const std::vector<double>& position) {
+bool Robot::moveToPosition(const Pose position) {
     return true;
 }
 
 // Method to pick an object
-bool Robot::pickObject() {
+bool Robot::pickObject(const Pose position) {
     return true;
 }
 
 // Method to place an object
-bool Robot::placeObject(const std::vector<double>& position) {
+bool Robot::placeObject(const Pose position) {
     return true;
 }

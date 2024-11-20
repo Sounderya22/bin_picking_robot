@@ -19,6 +19,14 @@ target_link_libraries(cpp-test PUBLIC
   gtest
   myLib1
   myLib2
+  motion_planner
+  object_detection
+  object_manipulation
+  perception_system
+  pose_estimation
+  robot
+  robot_motion_planner
+  sensor_manager
   )
 
 # Enable CMake’s test runner to discover the tests included in the

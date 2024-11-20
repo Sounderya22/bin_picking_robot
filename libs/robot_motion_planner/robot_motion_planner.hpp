@@ -1,7 +1,7 @@
 #ifndef ROBOT_MOTION_PLANNER_HPP
 #define ROBOT_MOTION_PLANNER_HPP
 
-#include "robot/robot.hpp"
+#include "robot.hpp"
 #include <iostream>
 
 
