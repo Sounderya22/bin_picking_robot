@@ -1,0 +1,2 @@
+/usr/bin/ar qc libobject_manipulation.a CMakeFiles/object_manipulation.dir/src.cpp.o
+/usr/bin/ranlib libobject_manipulation.a
