@@ -1,6 +1,4 @@
 #include <gtest/gtest.h>
-#include "lib1.hpp"
-#include "lib2.hpp"
 #include "motion_planner/motion_planner.hpp"
 #include "object_detection/object_detection.hpp"
 #include "object_manipulation/object_manipulation.hpp"
