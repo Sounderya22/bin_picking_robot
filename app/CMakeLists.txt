@@ -14,7 +14,6 @@ target_include_directories(bin-picking PUBLIC
 
 # Any dependent libraires needed to build this target.
 target_link_libraries(bin-picking PUBLIC -static
-  # list of libraries
   )
 
   

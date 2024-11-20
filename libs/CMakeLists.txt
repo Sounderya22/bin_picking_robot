@@ -1,5 +1,3 @@
-add_subdirectory(lib1)
-add_subdirectory(lib2)
 add_subdirectory (grasp_planner)
 add_subdirectory (motion_planner)
 add_subdirectory (object_detection)

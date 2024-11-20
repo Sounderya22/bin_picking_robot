@@ -1,4 +1,7 @@
 # Intelligent Bin-Picking Robot
+
+![CICD Workflow status](https://github.com/Sounderya22/bin_picking_robot/actions/workflows/run-unit-test-and-upload-codecov.yml/badge.svg) [![codecov](https://codecov.io/gh/Sounderya22/bin_picking_robot/branch/main/graph/badge.svg)](https://codecov.io/gh/Sounderya22/bin_picking_robot) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 This repository contains the deliverables for the Final Project of the course **ENPM700: Software Development for Robotics**
 
 ## Project Contributor

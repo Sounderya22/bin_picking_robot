@@ -17,8 +17,6 @@ target_include_directories(cpp-test PUBLIC
 target_link_libraries(cpp-test PUBLIC
   # list of libraries:
   gtest
-  myLib1
-  myLib2
   motion_planner
   object_detection
   object_manipulation
