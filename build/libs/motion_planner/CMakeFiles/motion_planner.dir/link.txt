@@ -1,2 +1,0 @@
-/usr/bin/ar qc libmotion_planner.a CMakeFiles/motion_planner.dir/src.cpp.o
-/usr/bin/ranlib libmotion_planner.a
