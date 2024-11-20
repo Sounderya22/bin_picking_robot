@@ -1,16 +1,7 @@
 #ifndef POSE_ESTIMATION_HPP
 #define POSE_ESTIMATION_HPP
 
-
-struct Pose {
-    double x;
-    double y;
-    double z;
-
-    double roll;
-    double pitch;
-    double yaw;
-};
+#include "robot_motion_planner/robot.hpp"
 
 class PoseEstimation {
 public:

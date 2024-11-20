@@ -9,5 +9,5 @@ add_library (pose_estimation
 # path when using this library.
 target_include_directories(pose_estimation PUBLIC
   # list of directories:
-  .
+  ${CMAKE_SOURCE_DIR}/libs
   )
