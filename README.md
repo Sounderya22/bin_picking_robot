@@ -21,3 +21,32 @@ The sprint planning sheet can be found [here](https://docs.google.com/document/d
 - [Grasp Pose Detection(GPD)](https://github.com/atenpas/gpd) - MIT License
 - [MoveIt2](https://moveit.picknik.ai/main/index.html) - Apache License 2.0
 
+## Build Instructions
+```bash
+# Download the code:
+  git clone https://github.com/Sounderya22/bin_picking_robot
+  cd bin_picking_robot/
+# if you don't have gcovr or lcov installed, do:
+  sudo apt-get install gcovr lcov
+# Configure the project and generate a native build system:
+  # Must re-run this command whenever any CMakeLists.txt file has been changed.
+  # Set the build type to Debug and WANT_COVERAGE=ON
+  cmake -D WANT_COVERAGE=ON -D CMAKE_BUILD_TYPE=Debug -S ./ -B build/
+# Compile and build the project:
+  # rebuild only files that are modified since the last build
+  cmake --build build/
+  # To do a clean compile, run unit test, and generate the covereage report
+  cmake --build build/ --clean-first --target all app_coverage test_coverage
+
+This generates a index.html page in the build/test_coverage and build/app_coverage sub-directory that can be viewed locally in a web browser.
+
+# open a web browser to browse the test coverage report
+  open build/test_coverage/index.html
+# opdn a web browser to browse the app coverage report
+  open build/app_coverage/index.html
+# Run program:
+  ./build/app/bin-picking
+# Clean and start over:
+  rm -rf build/
+
+  

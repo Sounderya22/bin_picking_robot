@@ -90,43 +90,43 @@ class MotionPlannerTest : public testing::Test {
     }
 };
 
-// // Test case to check if ComputeTrajectory works correctly
-// TEST_F(MotionPlannerTest, ComputeTrajectoryWorks) {
-//   EXPECT_EQ(motion_planner.computeTrajectory(test_start, test_goal), test_trajectory);
-// }
+// Test case to check if ComputeTrajectory works correctly
+TEST_F(MotionPlannerTest, ComputeTrajectoryWorks) {
+  EXPECT_EQ(motion_planner.computeTrajectory(test_start, test_goal), test_trajectory);
+}
 
-// // Test class for SensorManager
-// class SensorManagerTest : public ::testing::Test {
-// protected:
-//     SensorManager test_sensor_manager;
-//     PerceptionSystem test_perception_system;
-//     PoseEstimation pose_estimation;
-//     ObjectDetection object_detection;
+// Test class for SensorManager
+class SensorManagerTest : public ::testing::Test {
+protected:
+    SensorManager test_sensor_manager;
+    PerceptionSystem test_perception_system;
+    PoseEstimation pose_estimation;
+    ObjectDetection object_detection;
 
-//     SensorManagerTest() : test_perception_system(object_detection, pose_estimation), test_sensor_manager(test_perception_system) {};
-// };
+    SensorManagerTest() : test_perception_system(object_detection, pose_estimation), test_sensor_manager(test_perception_system) {};
+};
 
-// // Test case for getSensorData
-// TEST_F(SensorManagerTest, GetSensorDataWorks) {
-//     // Expected output
-//     std::vector<std::string> expectedSensorData = {"Sensor1"};
+// Test case for getSensorData
+TEST_F(SensorManagerTest, GetSensorDataWorks) {
+    // Expected output
+    std::vector<std::string> expectedSensorData = {"Sensor1"};
 
-//     // Get actual sensor data
-//     auto sensorData = test_sensor_manager.getSensorData();
+    // Get actual sensor data
+    auto sensorData = test_sensor_manager.getSensorData();
 
-//     // Check if the retrieved sensor data matches the expected data
-//     EXPECT_EQ(sensorData, expectedSensorData);
-// }
+    // Check if the retrieved sensor data matches the expected data
+    EXPECT_EQ(sensorData, expectedSensorData);
+}
 
-// // Test for PoseEstimation class method, estimateFrom3DData()
-// TEST(PoseEstimationTest, estimateFrom3DDataWorks) {
-//   PoseEstimation test_estimate;
-//   Pose test_pose;
-//   test_pose.x = 0;
-//   test_pose.y = 0;
-//   test_pose.z = 0;
-//   test_pose.pitch = 0;
-//   test_pose.roll = 0;
-//   test_pose.yaw = 0;
-//   EXPECT_EQ(test_estimate.estimateFrom3DData(), test_pose);
-// }
+// Test for PoseEstimation class method, estimateFrom3DData()
+TEST(PoseEstimationTest, estimateFrom3DDataWorks) {
+  PoseEstimation test_estimate;
+  Pose test_pose;
+  test_pose.x = 0;
+  test_pose.y = 0;
+  test_pose.z = 0;
+  test_pose.pitch = 0;
+  test_pose.roll = 0;
+  test_pose.yaw = 0;
+  EXPECT_EQ(test_estimate.estimateFrom3DData(), test_pose);
+}
