@@ -1,2 +1,0 @@
-/usr/bin/ar qc libperception_system.a CMakeFiles/perception_system.dir/src.cpp.o
-/usr/bin/ranlib libperception_system.a
