@@ -1,2 +1,0 @@
-/usr/bin/ar qc libgrasp_planner.a CMakeFiles/grasp_planner.dir/src.cpp.o
-/usr/bin/ranlib libgrasp_planner.a
