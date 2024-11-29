@@ -1,0 +1,14 @@
+launch:
+  
+# start talker
+- node:
+    pkg: "my_controller"
+    exec: "talker"
+    name: "talker"
+
+# start listener
+- node:
+    pkg: "my_controller"
+    exec: "listener"
+    name: "listener"
+
