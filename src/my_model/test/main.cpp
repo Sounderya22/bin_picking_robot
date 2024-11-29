@@ -1,5 +1,8 @@
 #include <gtest/gtest.h>
-#include <iostream>
+
+void function_not_used() {
+  int notUsed = 3;
+}
 
 int main(int argc, char** argv) {
   ::testing::InitGoogleTest(&argc, argv);
