@@ -9,5 +9,6 @@ add_library (motion_planner
 # path when using this library.
 target_include_directories(motion_planner PUBLIC
   # list of directories:
-  ${CMAKE_SOURCE_DIR}/libs
+  ..
+  .
   )
