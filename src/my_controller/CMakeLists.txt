@@ -12,8 +12,7 @@ find_package(ament_cmake REQUIRED) # will enable the BUILD_TESTING option
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(Doxygen REQUIRED)    # add doxygen support
-find_package(my_model REQUIRED)   # add my_model
-
+add_subdirectory(libs/my_model)
 ###################################################
 # Build level 2 unit test (i.e, integration test)
 ###################################################
