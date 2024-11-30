@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.14)
 project(my_model)
 
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  add_compile_options(-Wall -Wextra -Wpedantic)
+endif()
+
 #This package allows us to write config files that can be relocated, paths are not hard-coded.
 include ( CMakePackageConfigHelpers )
 
@@ -24,6 +28,7 @@ find_package(OpenCV REQUIRED)
 find_package(GTest REQUIRED)
 find_package(Doxygen REQUIRED)
 find_package(rclcpp REQUIRED)   # allow ROScpp library
+find_package(Doxygen REQUIRED)    # add doxygen support
 
 
 ############################################
@@ -118,7 +123,7 @@ endif()
 # Specify Targets
 ###################################
 # create a target to build documentation
-doxygen_add_docs(my_model_docs           # target name
+doxygen_add_docs(docs           # target name
   # List of files or directories
   ${PROJECT_SOURCE_DIR}/src
   ${PROJECT_SOURCE_DIR}/include
