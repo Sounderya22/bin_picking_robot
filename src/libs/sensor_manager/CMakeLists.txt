@@ -9,5 +9,6 @@ add_library (sensor_manager
 # path when using this library.
 target_include_directories(sensor_manager PUBLIC
   # list of directories:
-  ${CMAKE_SOURCE_DIR}/libs
+  ..
+  .
   )
