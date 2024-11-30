@@ -9,5 +9,6 @@ add_library (perception_system
 # path when using this library.
 target_include_directories(perception_system PUBLIC
   # list of directories:
-  ${CMAKE_SOURCE_DIR}/libs
+  ..
+  .
   )

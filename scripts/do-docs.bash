@@ -9,7 +9,7 @@ set -ue -o pipefail
 ###############################
 if (! which pandoc ); then
     echo "Please install pandoc first. Try:"
-    echo "  sudo apt install pandoc"
+    echo "  sudo apt install pandoc doxygen -y"
     exit 1
 fi
 

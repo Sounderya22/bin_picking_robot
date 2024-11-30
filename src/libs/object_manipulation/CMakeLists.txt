@@ -9,5 +9,6 @@ add_library (object_manipulation
 # path when using this library.
 target_include_directories(object_manipulation PUBLIC
   # list of directories:
-  ${CMAKE_SOURCE_DIR}/libs
+  ..
+  .
   )

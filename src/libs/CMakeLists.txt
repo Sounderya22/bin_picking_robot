@@ -1,3 +1,6 @@
+cmake_minimum_required(VERSION 3.8)
+project(codestub)
+
 add_subdirectory (grasp_planner)
 add_subdirectory (motion_planner)
 add_subdirectory (object_detection)
