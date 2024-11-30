@@ -12,7 +12,7 @@ find_package(ament_cmake REQUIRED) # will enable the BUILD_TESTING option
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(Doxygen REQUIRED)    # add doxygen support
-add_subdirectory(libs/my_model)
+find_package(my_model REQUIRED)
 ###################################################
 # Build level 2 unit test (i.e, integration test)
 ###################################################
@@ -29,7 +29,7 @@ if(BUILD_TESTING)
     test/integration_test.cpp)
   ament_target_dependencies(integration_test
     rclcpp
-    std_msgs)
+    std_msgs my_model)
   target_link_libraries(integration_test
     catch_ros2::catch_ros2_with_node_main
     my_model)
@@ -93,12 +93,12 @@ add_executable(listener
 
 # Add executable dependencis:
 ament_target_dependencies(talker
-  rclcpp std_msgs)
+  rclcpp std_msgs my_model)
 target_link_libraries(talker 
-  my_model)
+   my_model)
 
 ament_target_dependencies(listener
-  rclcpp std_msgs)
+  rclcpp std_msgs my_model)
 target_link_libraries(listener
   my_model)
 
