@@ -45,11 +45,14 @@ jobs:
       # Install some system pacakges
       - name: Install build packages
         run: |
-          sudo apt update
+          sudo apt update -y
+          sudo apt upgrade -y
           sudo apt install -y software-properties-common
           sudo apt install -y doxygen lcov gcovr pandoc
           source /opt/ros/humble/setup.bash
           sudo apt install -y ros-${ROS_DISTRO}-catch-ros2
+          rosdep update
+          rosdep install --from-path src --ignore-src --rosdistro ${ROS_DISTRO} -y
 
       # Build, run unit test, and generate coverage report
       - name: Build, run unit test, and generate coverage report

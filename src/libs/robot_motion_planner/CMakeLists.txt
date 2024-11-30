@@ -11,6 +11,8 @@ target_link_libraries(robot PUBLIC motion_planner)
 # path when using this library.
 target_include_directories(robot PRIVATE -static
   # list of directories:
+  ..
+  .
   )
 
 add_library (robot_motion_planner
@@ -24,5 +26,6 @@ target_link_libraries(robot_motion_planner PUBLIC motion_planner)
 # path when using this library.
 target_include_directories(robot_motion_planner PRIVATE -static
   # list of directories:
-  ${CMAKE_SOURCE_DIR}/libs
+  ..
+  .
   )

@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.14)
 project(my_model)
 
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  add_compile_options(-Wall -Wextra -Wpedantic)
+endif()
+
 #This package allows us to write config files that can be relocated, paths are not hard-coded.
 include ( CMakePackageConfigHelpers )
 
@@ -24,6 +28,7 @@ find_package(OpenCV REQUIRED)
 find_package(GTest REQUIRED)
 find_package(Doxygen REQUIRED)
 find_package(rclcpp REQUIRED)   # allow ROScpp library
+find_package(Doxygen REQUIRED)    # add doxygen support
 
 
 ############################################
@@ -46,7 +51,7 @@ endif()
 
 if(WANT_COVERAGE)
   message("Enabling coverage")
-  list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake-modules")
+  list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake-modules")
   include(CodeCoverage)
   # The following line come from cmake-modules/CodeCoverage.cmake
   append_coverage_compiler_flags() # will add "--coverage" compilation flag
