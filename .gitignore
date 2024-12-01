@@ -15,4 +15,4 @@ log/
 *.pyc
 
 combined_test_coverage/*
-.vscode
+.vscode/*
