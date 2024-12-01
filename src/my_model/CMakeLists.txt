@@ -189,6 +189,23 @@ install(EXPORT my_model-export
   DESTINATION share/${PROJECT_NAME}/cmake/
   )
 
+install(TARGETS
+my_model
+DESTINATION lib/${PROJECT_NAME})
+
+# install launch files
+install(DIRECTORY
+  launch 
+  DESTINATION share/${PROJECT_NAME})
+
+## Install some arbitrary executables
+# install(PROGRAMS      # want to make the file executable (ie. chmod a+x)
+#   scripts/run_me_for_fun.bash
+#   scripts/generate_coverage_report.bash
+#   DESTINATION lib/${PROJECT_NAME})
+
+ament_package()
+
 
 ###################################
 # Sub-Modules

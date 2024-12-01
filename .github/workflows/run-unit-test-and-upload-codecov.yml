@@ -51,6 +51,7 @@ jobs:
           sudo apt install -y doxygen lcov gcovr pandoc
           source /opt/ros/humble/setup.bash
           sudo apt install -y ros-${ROS_DISTRO}-catch-ros2
+          sudo apt install -y ros-${ROS_DISTRO}-moveit-*
           rosdep update
           rosdep install --from-path src --ignore-src --rosdistro ${ROS_DISTRO} -y
 

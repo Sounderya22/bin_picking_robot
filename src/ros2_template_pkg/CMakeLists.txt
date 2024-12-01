@@ -10,6 +10,8 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclcpp_action REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(Doxygen REQUIRED)    # add doxygen support
+
 
 include_directories(include)
 
@@ -88,6 +90,16 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON) # Enable compile_commands.json
 execute_process(COMMAND cmake -E create_symlink
                 "${PROJECT_BINARY_DIR}/compile_commands.json"
                 "${PROJECT_SOURCE_DIR}/compile_commands.json")
+
+###################################################
+# Build level 2 unit test (i.e, integration test)
+###################################################
+# below sets up code coverage flags
+if(COVERAGE)
+  set(CMAKE_BUILD_TYPE "Debug")
+  set(CMAKE_CXX_FLAGS "--coverage")
+  set(CMAKE_CXX_OUTPUT_EXTENSION_REPLACE "ON")
+endif()
 
 ###################################################
 # Doxygen Rules
