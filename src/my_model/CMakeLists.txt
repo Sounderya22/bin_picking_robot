@@ -131,10 +131,13 @@ doxygen_add_docs(docs           # target name
   )
 
 # Build libraries:
-add_library (my_model
+add_library (my_model SHARED
   src/my_dummy_lib_funct1.cpp
   src/my_dummy_lib_funct2.cpp
   )
+
+
+# ament_export_libraries(my_model)
 
 # Specify where the associated include files are
 target_include_directories (my_model PUBLIC
@@ -157,17 +160,9 @@ target_link_libraries(my_model
 # Installation
 ###################################
 
-# Install executables and libraries:
-install (TARGETS
-  my_model
-  EXPORT my_model-export      # Add targets to a export group named "my_model-export"
-  DESTINATION lib/${PROJECT_NAME}
-  )
-
 # Install the header files
-install(FILES
-  include/my_dummy_lib_funct1.hpp
-  include/my_dummy_lib_funct2.hpp
+install(DIRECTORY
+  ${PROJECT_SOURCE_DIR}/include/
   DESTINATION include 
   )
 
@@ -176,26 +171,52 @@ install(FILES
 ###################################
 
 # Export the export group. CMake will write a configuration file of the current build tree:
-export (TARGETS
-  my_model
-  FILE my_model-config.cmake)   # must by <PACKAGE>-config.cmake
+# export (TARGETS
+#   my_model
+#   FILE my_model-config.cmake)   # must by <PACKAGE>-config.cmake
 
 # Export the build tree to the package registry (~/.cmake/packages/<packag>/)
-set(CMAKE_EXPORT_PACKAGE_REGISTRY ON)
-export(PACKAGE my_model)
+# set(CMAKE_EXPORT_PACKAGE_REGISTRY ON)
+# export(PACKAGE my_model)
 
 # Install the export group
-install(EXPORT my_model-export
-  DESTINATION share/${PROJECT_NAME}/cmake/
-  )
+# install(EXPORT my_model-export
+#   DESTINATION share/${PROJECT_NAME}/cmake/
+#   )
 
-install(TARGETS
-my_model
-DESTINATION lib/${PROJECT_NAME})
+# install(TARGETS
+# my_model
+# DESTINATION lib/${PROJECT_NAME})
+
+
+# let the compiler search for headers in the include folder
+include_directories(include)
+ 
+# define a library target called my_value_converter_library
+ 
+# this line to exports the library
+ament_export_targets(my_model HAS_LIBRARY_TARGET)
+ 
+# install the include/my_cpp_library directory to the install/include/my_cpp_library
+install(
+  DIRECTORY include/
+  DESTINATION include
+)
+ 
+install(
+  TARGETS my_model
+  EXPORT my_model
+  LIBRARY DESTINATION lib
+  ARCHIVE DESTINATION lib
+  RUNTIME DESTINATION bin
+  INCLUDES DESTINATION include
+)
+
+
 
 # install launch files
 install(DIRECTORY
-  launch 
+  launch include
   DESTINATION share/${PROJECT_NAME})
 
 ## Install some arbitrary executables

@@ -31,8 +31,7 @@ if(BUILD_TESTING)
     rclcpp
     std_msgs my_model)
   target_link_libraries(integration_test
-    catch_ros2::catch_ros2_with_node_main
-    my_model)
+    catch_ros2::catch_ros2_with_node_main)
   catch_ros2_add_integration_test (Demo_Integration_Test
     LAUNCH_FILE integration_test.launch.yaml)
 endif()
@@ -94,14 +93,15 @@ add_executable(listener
 # Add executable dependencis:
 ament_target_dependencies(talker
   rclcpp std_msgs my_model)
-target_link_libraries(talker 
-   my_model)
+# target_link_libraries(talker 
+# my_model)
 
 ament_target_dependencies(listener
   rclcpp std_msgs my_model)
-target_link_libraries(listener
-  my_model)
-
+# target_link_libraries(listener
+# my_model)
+# target_include_directories(talker PUBLIC ${my_model_INCLUDE_DIRS})
+# target_include_directories(listener PUBLIC ${my_model_INCLUDE_DIRS})
 ###################################
 # Installation
 ###################################
@@ -114,7 +114,7 @@ install(TARGETS
 
 # install launch files
 install(DIRECTORY
-  launch
+  launch 
   DESTINATION share/${PROJECT_NAME})
 
 ## Install some arbitrary executables
