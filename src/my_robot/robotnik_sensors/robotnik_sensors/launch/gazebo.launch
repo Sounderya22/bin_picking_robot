@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
 <launch>
-
   <!-- Simulation arguments -->
   <arg name="robot_id" default="$(optenv ROBOT_ID sensor)"/>
   <arg name="world_name" default="$(find gazebo_ros)/worlds/empty_world.world"/>

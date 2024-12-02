@@ -45,7 +45,6 @@ from launch.substitutions import (
     PathJoinSubstitution,
     OrSubstitution,
 )
-import launch_ros.descriptions
 
 
 def launch_setup(context, *args, **kwargs):
@@ -128,7 +127,6 @@ def launch_setup(context, *args, **kwargs):
             " ",
         ]
     )
-    robot_description_content=launch_ros.descriptions.ParameterValue(robot_description_content, value_type=str)
     robot_description = {"robot_description": robot_description_content}
 
     # MoveIt Configuration
@@ -150,8 +148,6 @@ def launch_setup(context, *args, **kwargs):
             " ",
         ]
     )
-
-    robot_description_semantic_content=launch_ros.descriptions.ParameterValue(robot_description_semantic_content, value_type=str)
     robot_description_semantic = {"robot_description_semantic": robot_description_semantic_content}
 
     publish_robot_description_semantic = {
@@ -159,7 +155,7 @@ def launch_setup(context, *args, **kwargs):
     }
 
     robot_description_kinematics = PathJoinSubstitution(
-        [FindPackageShare(moveit_config_package), "config", "kinematics_1.yaml"]
+        [FindPackageShare(moveit_config_package), "config", "kinematics.yaml"]
     )
 
     robot_description_planning = {
@@ -177,18 +173,18 @@ def launch_setup(context, *args, **kwargs):
             "start_state_max_bounds_error": 0.1,
         }
     }
-    ompl_planning_yaml = load_yaml("test_moveit_config", "config/ompl_planning.yaml")
+    ompl_planning_yaml = load_yaml("ur_moveit_config", "config/ompl_planning.yaml")
     ompl_planning_pipeline_config["move_group"].update(ompl_planning_yaml)
 
     # Trajectory Execution Configuration
-    controllers_yaml = load_yaml("test_moveit_config", "config/moveit_controllers.yaml")
+    controllers_yaml = load_yaml("ur_moveit_config", "config/controllers.yaml")
     # the scaled_joint_trajectory_controller does not work on fake hardware
     change_controllers = context.perform_substitution(
         OrSubstitution(use_fake_hardware, use_sim_time)
     )
-    # if change_controllers == "true":
-    #     # controllers_yaml["scaled_joint_trajectory_controller"]["default"] = False
-    #     controllers_yaml["joint_trajectory_controller"]["default"] = True
+    if change_controllers == "true":
+        controllers_yaml["scaled_joint_trajectory_controller"]["default"] = False
+        controllers_yaml["joint_trajectory_controller"]["default"] = True
 
     moveit_controllers = {
         "moveit_simple_controller_manager": controllers_yaml,
@@ -261,7 +257,7 @@ def launch_setup(context, *args, **kwargs):
     )
 
     # Servo node for realtime control
-    servo_yaml = load_yaml("test_moveit_config", "config/ur_servo.yaml")
+    servo_yaml = load_yaml("ur_moveit_config", "config/ur_servo.yaml")
     servo_params = {"moveit_servo": servo_yaml}
     servo_node = Node(
         package="moveit_servo",
@@ -275,7 +271,7 @@ def launch_setup(context, *args, **kwargs):
         output="screen",
     )
 
-    nodes_to_start = [move_group_node, rviz_node]
+    nodes_to_start = [move_group_node, rviz_node, servo_node]
 
     return nodes_to_start
 
@@ -294,7 +290,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "use_fake_hardware",
-            default_value="true",
+            default_value="false",
             description="Indicate whether robot is running with fake hardware mirroring command to its states.",
         )
     )
@@ -345,7 +341,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "moveit_config_package",
-            default_value="test_moveit_config",
+            default_value="ur_moveit_config",
             description="MoveIt config package with robot SRDF/XACRO files. Usually the argument "
             "is not set, it enables use of a custom moveit config.",
         )
@@ -353,7 +349,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "moveit_config_file",
-            default_value="ur_moveit.srdf.xacro",
+            default_value="ur.srdf.xacro",
             description="MoveIt SRDF/XACRO description file with the robot.",
         )
     )
@@ -374,7 +370,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "use_sim_time",
-            default_value="true",
+            default_value="false",
             description="Make MoveIt to use simulation time. This is needed for the trajectory planing in simulation.",
         )
     )

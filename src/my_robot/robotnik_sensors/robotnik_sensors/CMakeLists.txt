@@ -18,6 +18,6 @@ endif()
 ament_package()
 
 install(
-  DIRECTORY meshes urdf
+  DIRECTORY meshes urdf launch
   DESTINATION share/${PROJECT_NAME}/
 )
