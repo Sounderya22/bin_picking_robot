@@ -35,8 +35,32 @@
       <joint name="${prefix}shoulder_lift_joint" value="-1.62" />
       <joint name="${prefix}shoulder_pan_joint" value="1.54" />
       <joint name="${prefix}wrist_1_joint" value="-1.2" />
-      <joint name="${prefix}wrist_2_joint" value="-1.6" /> 
+      <joint name="${prefix}wrist_2_joint" value="-1.6" />
       <joint name="${prefix}wrist_3_joint" value="-0.11" />
+    </group_state>
+    <group_state name="${prefix}front_configuration" group="${prefix}${name}_manipulator">
+      <joint name="${prefix}elbow_joint" value="1.4" />
+      <joint name="${prefix}shoulder_lift_joint" value="-1.62" />
+      <joint name="${prefix}shoulder_pan_joint" value="0.0" />
+      <joint name="${prefix}wrist_1_joint" value="-1.62" />
+      <joint name="${prefix}wrist_2_joint" value="-1.83" />
+      <joint name="${prefix}wrist_3_joint" value="-0.36" />
+    </group_state>
+    <group_state name="${prefix}left_configuration" group="${prefix}${name}_manipulator">
+      <joint name="${prefix}elbow_joint" value="0.765" />
+      <joint name="${prefix}shoulder_lift_joint" value="-1.07" />
+      <joint name="${prefix}shoulder_pan_joint" value="1.49" />
+      <joint name="${prefix}wrist_1_joint" value="-1.43" />
+      <joint name="${prefix}wrist_2_joint" value="-1.72" />
+      <joint name="${prefix}wrist_3_joint" value="-0.30" />
+    </group_state>
+    <group_state name="${prefix}right_configuration" group="${prefix}${name}_manipulator">
+      <joint name="${prefix}elbow_joint" value="0.765" />
+      <joint name="${prefix}shoulder_lift_joint" value="-1.07" />
+      <joint name="${prefix}shoulder_pan_joint" value="-1.80" />
+      <joint name="${prefix}wrist_1_joint" value="-1.43" />
+      <joint name="${prefix}wrist_2_joint" value="-1.72" />
+      <joint name="${prefix}wrist_3_joint" value="-0.30" />
     </group_state>
     <!--END EFFECTOR - Purpose - Represent information about an end effector.-->
     <!--VIRTUAL JOINT - Purpose - this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
