@@ -9,3 +9,9 @@ add_subdirectory (perception_system)
 add_subdirectory (pose_estimation)
 add_subdirectory (robot_motion_planner)
 add_subdirectory (sensor_manager)
+
+install(
+    DIRECTORY 
+    .
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/share/codestub
+)
