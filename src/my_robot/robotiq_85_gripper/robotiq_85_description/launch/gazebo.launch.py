@@ -25,7 +25,7 @@ def generate_launch_description():
     return LaunchDescription([
         DeclareLaunchArgument(
           'world',
-          default_value=[os.path.join(pkg_robotiq_description, 'worlds', 'box_bot_empty.world'), ''],
+          default_value=[os.path.join(pkg_robotiq_description, 'worlds', 'empty.world'), ''],
           description='SDF world file'),
         gazebo
     ])
