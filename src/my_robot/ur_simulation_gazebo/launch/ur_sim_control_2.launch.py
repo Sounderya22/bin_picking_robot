@@ -114,9 +114,10 @@ def launch_setup(context, *args, **kwargs):
             initial_joint_controllers,
         ]
     )
+    
     robot_description = {"robot_description": robot_description_content}
     # Specify the filename
-    filename = 'robot_description.txt'
+    filename = 'robot_description.txt'   
 
     # Write the robot description to the file
     with open(filename, 'w') as file:

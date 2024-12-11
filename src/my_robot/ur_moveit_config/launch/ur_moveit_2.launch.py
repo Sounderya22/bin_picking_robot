@@ -6,9 +6,9 @@
 #    * Redistributions of source code must retain the above copyright
 #      notice, this list of conditions and the following disclaimer.
 #
-#    * Redistributions in binary form must reproduce the above copyright 
+#    * Redistributions in binary form must reproduce the above copyright
 #      notice, this list of conditions and the following disclaimer in the
-#      documentation and/or other materials provided with the distribution.
+#      documentation and/or other materials provided with the distribution. 
 #
 #    * Neither the name of the {copyright_holder} nor the names of its
 #      contributors may be used to endorse or promote products derived from
@@ -69,7 +69,7 @@ def launch_setup(context, *args, **kwargs):
     launch_servo = LaunchConfiguration("launch_servo")
 
     joint_limit_params = PathJoinSubstitution(
-        [FindPackageShare(description_package), "config", ur_type, "joint_limits.yaml"]
+        [FindPackageShare(description_package), "config", ur_type, "joint_limits_1.yaml"]
     )
     kinematics_params = PathJoinSubstitution(
         [FindPackageShare(description_package), "config", ur_type, "default_kinematics.yaml"]
@@ -128,6 +128,7 @@ def launch_setup(context, *args, **kwargs):
         ]
     )
     robot_description = {"robot_description": robot_description_content}
+    print("Line 131, moveit launch")
 
     # MoveIt Configuration
     robot_description_semantic_content = Command(
@@ -149,7 +150,8 @@ def launch_setup(context, *args, **kwargs):
         ]
     )
     robot_description_semantic = {"robot_description_semantic": robot_description_semantic_content}
-
+    
+    print("Line 153, moveit launch")
     publish_robot_description_semantic = {
         "publish_robot_description_semantic": _publish_robot_description_semantic
     }
@@ -157,6 +159,8 @@ def launch_setup(context, *args, **kwargs):
     robot_description_kinematics = PathJoinSubstitution(
         [FindPackageShare(moveit_config_package), "config", "kinematics.yaml"]
     )
+    print("Line 161, moveit launch")
+
 
     robot_description_planning = {
         "robot_description_planning": load_yaml(
@@ -164,6 +168,7 @@ def launch_setup(context, *args, **kwargs):
             os.path.join("config", str(moveit_joint_limits_file.perform(context))),
         )
     }
+    print("Line 171, moveit launch")
 
     # Planning Configuration
     ompl_planning_pipeline_config = {
@@ -177,7 +182,7 @@ def launch_setup(context, *args, **kwargs):
     ompl_planning_pipeline_config["move_group"].update(ompl_planning_yaml)
 
     # Trajectory Execution Configuration
-    controllers_yaml = load_yaml("ur_moveit_config", "config/controllers.yaml")
+    controllers_yaml = load_yaml("ur_moveit_config", "config/controllers_1.yaml")
     # the scaled_joint_trajectory_controller does not work on fake hardware
     change_controllers = context.perform_substitution(
         OrSubstitution(use_fake_hardware, use_sim_time)
@@ -211,6 +216,8 @@ def launch_setup(context, *args, **kwargs):
         "warehouse_plugin": "warehouse_ros_sqlite::DatabaseConnection",
         "warehouse_host": warehouse_sqlite_path,
     }
+    print("Line 219, moveit launch")
+
 
     # Start the actual move_group node/action server
     move_group_node = Node(
@@ -231,6 +238,9 @@ def launch_setup(context, *args, **kwargs):
             warehouse_ros_config,
         ],
     )
+
+    print("Line 242, moveit launch")
+
 
     # rviz with moveit configuration
     rviz_config_file = PathJoinSubstitution(
@@ -256,6 +266,9 @@ def launch_setup(context, *args, **kwargs):
         ],
     )
 
+    print("Line 269, moveit launch")
+
+
     # Servo node for realtime control
     servo_yaml = load_yaml("ur_moveit_config", "config/ur_servo.yaml")
     servo_params = {"moveit_servo": servo_yaml}
@@ -270,6 +283,8 @@ def launch_setup(context, *args, **kwargs):
         ],
         output="screen",
     )
+
+    print("Line 287, moveit launch")
 
     nodes_to_start = [move_group_node, rviz_node, servo_node]
 
@@ -327,7 +342,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "description_file",
-            default_value="ur.urdf.xacro",
+            default_value="ur_test_4.urdf.xacro",
             description="URDF/XACRO description file with the robot.",
         )
     )
@@ -349,14 +364,14 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "moveit_config_file",
-            default_value="ur.srdf.xacro",
+            default_value="ur_moveit.srdf.xacro",
             description="MoveIt SRDF/XACRO description file with the robot.",
         )
     )
     declared_arguments.append(
         DeclareLaunchArgument(
             "moveit_joint_limits_file",
-            default_value="joint_limits.yaml",
+            default_value="joint_limits_1.yaml",
             description="MoveIt joint limits that augment or override the values from the URDF robot_description.",
         )
     )
@@ -387,7 +402,7 @@ def generate_launch_description():
         DeclareLaunchArgument("launch_rviz", default_value="true", description="Launch RViz?")
     )
     declared_arguments.append(
-        DeclareLaunchArgument("launch_servo", default_value="true", description="Launch Servo?")
+        DeclareLaunchArgument("launch_servo", default_value="false", description="Launch Servo?")
     )
 
     return LaunchDescription(declared_arguments + [OpaqueFunction(function=launch_setup)])

@@ -114,6 +114,7 @@ def launch_setup(context, *args, **kwargs):
             initial_joint_controllers,
         ]
     )
+    
     robot_description = {"robot_description": robot_description_content}
     # Specify the filename
     filename = 'robot_description.txt'
@@ -138,12 +139,14 @@ def launch_setup(context, *args, **kwargs):
         arguments=["-d", rviz_config_file],
         condition=IfCondition(launch_rviz),
     )
+    print("I am after rviz node")
 
     joint_state_broadcaster_spawner = Node(
         package="controller_manager",
         executable="spawner",
         arguments=["joint_state_broadcaster", "--controller-manager", "/controller_manager"],
     )
+    print("I am after JSB node")
 
     # Delay rviz start after `joint_state_broadcaster`
     delay_rviz_after_joint_state_broadcaster_spawner = RegisterEventHandler(
@@ -153,6 +156,7 @@ def launch_setup(context, *args, **kwargs):
         ),
         condition=IfCondition(launch_rviz),
     )
+    print("I am after delay rviz node")
 
     # There may be other controllers of the joints, but this is the initially-started one
     initial_joint_controller_spawner_started = Node(
@@ -161,12 +165,15 @@ def launch_setup(context, *args, **kwargs):
         arguments=[initial_joint_controller, "-c", "/controller_manager"],
         condition=IfCondition(start_joint_controller),
     )
+    print("I am after delay iJCM node")
+
     initial_joint_controller_spawner_stopped = Node(
         package="controller_manager",
         executable="spawner",
         arguments=[initial_joint_controller, "-c", "/controller_manager", "--stopped"],
         condition=UnlessCondition(start_joint_controller),
     )
+    print("I am after delay iJCM_stop node")   
 
     # Gazebo nodes
     gazebo = IncludeLaunchDescription(
@@ -177,6 +184,7 @@ def launch_setup(context, *args, **kwargs):
             "gui": gazebo_gui, 'world': world,
         }.items(),
     )
+    print("I am after delay gazebo node")   
 
     # Spawn robot
     gazebo_spawn_robot = Node(
@@ -194,6 +202,8 @@ def launch_setup(context, *args, **kwargs):
         '-Y', yaw],
         output="screen",
     )
+    print("I am after delay gazebo_spawn node")   
+
 
     nodes_to_start = [
         robot_state_publisher_node,
@@ -204,6 +214,8 @@ def launch_setup(context, *args, **kwargs):
         gazebo,
         gazebo_spawn_robot,
     ]
+    print("I am after delay nodest to start line")   
+
 
     return nodes_to_start
 
@@ -268,7 +280,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "description_file",
-            default_value="ur.urdf.xacro",
+            default_value="ur_1.urdf.xacro",
             description="URDF/XACRO description file with the robot.",
         )
     )

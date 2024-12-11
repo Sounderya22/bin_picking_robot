@@ -1,7 +1,19 @@
 controller_names:
-  - scaled_joint_trajectory_controller
   - joint_trajectory_controller
- 
+  - scaled_joint_trajectory_controller
+  - gripper_controller
+
+joint_trajectory_controller:
+  type: FollowJointTrajectory
+  action_ns: follow_joint_trajectory
+  default: true
+  joints:
+    - shoulder_pan_joint
+    - shoulder_lift_joint
+    - elbow_joint
+    - wrist_1_joint
+    - wrist_2_joint
+    - wrist_3_joint
 
 scaled_joint_trajectory_controller:
   action_ns: follow_joint_trajectory
@@ -15,15 +27,10 @@ scaled_joint_trajectory_controller:
     - wrist_2_joint
     - wrist_3_joint
 
-
-joint_trajectory_controller:
-  action_ns: follow_joint_trajectory
-  type: FollowJointTrajectory
-  default: false
+gripper_controller:
+  type: GripperCommand
+  action_ns: gripper_cmd
+  default: true
+  parallel: true
   joints:
-    - shoulder_pan_joint
-    - shoulder_lift_joint
-    - elbow_joint
-    - wrist_1_joint
-    - wrist_2_joint
-    - wrist_3_joint
+    - robotiq_85_left_knuckle_joint 

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://wiki.ros.org/xacro" name="$(arg name)">
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="ur">
    <!-- robot name parameter -->
    <xacro:arg name="name" default="ur"/>
    <!-- import main macro -->
@@ -8,9 +8,9 @@
 
    <!-- possible 'ur_type' values: ur3, ur3e, ur5, ur5e, ur10, ur10e, ur16e, ur20, ur30 -->
    <!-- the default value should raise an error in case this was called without defining the type -->
-   <xacro:arg name="ur_type" default="ur5x"/>
+   <xacro:arg name="ur_type" default="ur5e"/>
 
-   <!-- parameters -->
+   <!-- parameters -->  
    <xacro:arg name="tf_prefix" default="" />
    <xacro:arg name="joint_limit_params" default="$(find ur_description)/config/$(arg ur_type)/joint_limits.yaml"/>
    <xacro:arg name="kinematics_params" default="$(find ur_description)/config/$(arg ur_type)/default_kinematics.yaml"/>
@@ -127,12 +127,16 @@
      <origin xyz="0 0 0" rpy="0 0 0" />          <!-- position robot in the world -->
    </xacro:ur_robot>
 
+  <xacro:include filename="$(find ur_description)/urdf/gripper.urdf.xacro" /> 
+
 
 <!-- Vision sensor for color and depth stream of the environment -->
   <xacro:sensor_r430 prefix="top_rgbd" parent="base_link" >
-       <!--<origin xyz="0.35 0.45 0.1" rpy="0 ${pi/6} ${-pi/2}"/>-->
+             <!-- unused <origin xyz="0.35 0.45 0.1" rpy="0 ${pi/6} ${-pi/2}"/> -->
        <origin xyz="0.6 0.0 1.2" rpy="0 ${pi/2} ${0}"/>
    </xacro:sensor_r430>
+
+
 
    <xacro:if value="$(arg sim_gazebo)">
     <!-- Gazebo plugins -->
