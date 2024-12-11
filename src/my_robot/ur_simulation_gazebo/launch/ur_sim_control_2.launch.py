@@ -58,6 +58,7 @@ def launch_setup(context, *args, **kwargs):
     prefix = LaunchConfiguration("prefix")
     start_joint_controller = LaunchConfiguration("start_joint_controller")
     initial_joint_controller = LaunchConfiguration("initial_joint_controller")
+    gripper_controller_spawner = LaunchConfiguration("gripper_controller_spawner")
     launch_rviz = LaunchConfiguration("launch_rviz")
     gazebo_gui = LaunchConfiguration("gazebo_gui")
     world_name = LaunchConfiguration("world")
@@ -77,6 +78,8 @@ def launch_setup(context, *args, **kwargs):
     initial_joint_controllers = PathJoinSubstitution(
         [FindPackageShare(runtime_config_package), "config", controllers_file]
     )
+
+    
 
     rviz_config_file = PathJoinSubstitution(
         [FindPackageShare(description_package), "rviz", "view_robot.rviz"]
@@ -169,6 +172,13 @@ def launch_setup(context, *args, **kwargs):
         condition=UnlessCondition(start_joint_controller),
     )
 
+    gripper_controller_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=[LaunchConfiguration("gripper_controller"), "-c", "/controller_manager"],
+    )
+
+
     # Gazebo nodes
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -202,6 +212,7 @@ def launch_setup(context, *args, **kwargs):
         delay_rviz_after_joint_state_broadcaster_spawner,
         initial_joint_controller_spawner_stopped,
         initial_joint_controller_spawner_started,
+        gripper_controller_spawner,
         gazebo,
         gazebo_spawn_robot,
     ]
@@ -297,6 +308,15 @@ def generate_launch_description():
             description="Robot controller to start.",
         )
     )
+
+    declared_arguments.append(
+        DeclareLaunchArgument(
+            "gripper_controller",
+            default_value="gripper_controller",
+            description="Gripper controller to start.",
+        )
+    )
+
     declared_arguments.append(
         DeclareLaunchArgument("launch_rviz", default_value="true", description="Launch RViz?")
     )
