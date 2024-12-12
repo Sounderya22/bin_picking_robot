@@ -66,7 +66,8 @@ This can be self-verified as well by running the following command in the highes
 # Navigate to the 'src' directory
   cd src/
 # Self-check the static code analysis using Cppcheck:
-  cppcheck --enable=all --std=c++11 --std=c++17 --enable=information --check-config --suppress=missingInclude --suppress=*:*test*/ --suppress=unmatchedSuppression $( find . -name *.cpp | grep -vE -e "^./build/")
+  cppcheck --enable=all --std=c++11 --std=c++17 --enable=information --check-config --suppress=missingInclude --suppress=*:*test*/ --suppress=unmatchedSuppression $( find . -name *.cpp | grep -vE -e "^./build/") > cppcheck_results.txt 2>&1
+
 ```
 
-On running the above command, you should see the same output in the `results/cppcheck_output.txt` file.
+On running the above command, you should see the same output in the `results/cppcheck_results.txt` file.
