@@ -21,143 +21,34 @@ The sprint planning sheet can be found [here](https://docs.google.com/document/d
 - [Grasp Pose Detection(GPD)](https://github.com/atenpas/gpd) - MIT License
 - [MoveIt2](https://moveit.picknik.ai/main/index.html) - Apache License 2.0
 
-## Build Instructions
-```bash
-# Download the code:
-  git clone https://github.com/Sounderya22/bin_picking_robot
-  cd bin_picking_robot/
-# if you don't have gcovr or lcov installed, do:
-  sudo apt-get install gcovr lcov
-# Configure the project and generate a native build system:
-  # Must re-run this command whenever any CMakeLists.txt file has been changed.
-  # Set the build type to Debug and WANT_COVERAGE=ON
-  cmake -D WANT_COVERAGE=ON -D CMAKE_BUILD_TYPE=Debug -S ./ -B build/
-# Compile and build the project:
-  # rebuild only files that are modified since the last build
-  cmake --build build/
-  # To do a clean compile, run unit test, and generate the covereage report
-  cmake --build build/ --clean-first --target all app_coverage test_coverage
-
-This generates a index.html page in the build/test_coverage and build/app_coverage sub-directory that can be viewed locally in a web browser.
-
-# open a web browser to browse the test coverage report
-  open build/test_coverage/index.html
-# opdn a web browser to browse the app coverage report
-  open build/app_coverage/index.html
-# Run program:
-  ./build/app/bin-picking
-# Clean and start over:
-  rm -rf build/
-
-  
-## How to generate module / package dependency graph
-
-``` bash
-colcon graph --dot | dot -Tpng -o depGraph.png
-open depGraph.png
-```
-[<img src=screenshots/depGraph.png
-    width="20%" 
-    style="display: block; margin: 0 auto"
-    />](screenshots/depGraph.png)
-
-
-
-## How to build and run demo
-
-First, make sure we install the catch2 ROS2 package.
-```bash
-$ source /opt/ros/humble/setup.bash  # if needed
-$ sudo apt install ros-${ROS_DISTRO}-catch-ros2
-```
-Now, we can build our system:
+## Building the code
+Run the commands listed below to build the package and libraries.
 ```bash
 rm -rf build/ install/
 colcon build 
-
-```
-And finally, run the demo:
-
-```bash
 source install/setup.bash
-ros2 launch my_controller run_demo.launch.yaml
-```
-example output:
-
-```
-[INFO] [launch]: All log files can be found below /home/tchang/.ros/log/2024-11-14-01-15-43-657639-tchang-IdeaPad-3-17ABA7-2012192
-[INFO] [launch]: Default logging verbosity is set to INFO
-[INFO] [talker-1]: process started with pid [2012193]
-[INFO] [listener-2]: process started with pid [2012195]
-[listener-2] Calling OpenCV function
-[listener-2] [INFO] [1731564943.913295525] [my_model]: Calling ROS function
-[talker-1] Calling OpenCV function
-[talker-1] [INFO] [1731564944.413417817] [my_model]: Calling ROS function
-[talker-1] [INFO] [1731564944.413485842] [talker]: Publishing: 101 Hello, world! 0
-[listener-2] [INFO] [1731564944.413881423] [listener]: subName=subscription0, I heard : 'Hello, world! 0'
-[listener-2] [INFO] [1731564944.413998198] [listener]: subName=subscription1, I heard : 'Hello, world! 0'
-[listener-2] [INFO] [1731564944.414027042] [listener]: subName=subscription2, I heard : 'Hello, world! 0'
-[listener-2] [INFO] [1731564944.414057074] [listener]: subName=subscription3, I heard : 'Hello, world! 0'
-[listener-2] [INFO] [1731564944.414086617] [listener]: subName=subscription4, I heard : 'Hello, world! 0'
-[talker-1] Calling OpenCV function
-[talker-1] [INFO] [1731564944.911201194] [my_model]: Calling ROS function
-[talker-1] [INFO] [1731564944.911250432] [talker]: Publishing: 102 Hello, world! 1
-[listener-2] [INFO] [1731564944.911475601] [listener]: subName=subscription0, I heard : 'Hello, world! 1'
-[listener-2] [INFO] [1731564944.911539017] [listener]: subName=subscription2, I heard : 'Hello, world! 1'
-[listener-2] [INFO] [1731564944.911562413] [listener]: subName=subscription3, I heard : 'Hello, world! 1'
-[listener-2] [INFO] [1731564944.911591467] [listener]: subName=subscription4, I heard : 'Hello, world! 1'
-[listener-2] [INFO] [1731564944.911633512] [listener]: subName=subscription1, I heard : 'Hello, world! 1'
-[talker-1] Calling OpenCV function
-[talker-1] [INFO] [1731564945.411270616] [my_model]: Calling ROS function
-[talker-1] [INFO] [1731564945.411329702] [talker]: Publishing: 103 Hello, world! 2
-
 ```
 
-## How to build tests (unit test and integration test)
-We want to run tests with code coverage.  Therefore, we need to enable the code coverage option.
+### Building for Unit and Integration Tests
 
+Further, run these commands to build for running the unit tests and integration tests.
 ```bash
 rm -rf build/ install/
 colcon build --cmake-args -DCOVERAGE=1 
 ```
+### Running the Unit and Integration Tests
 
-## How to run tests (unit and integration)
-
+Execute the following commands to run the previosuly built unit and integration tests.
 ```bash
 source install/setup.bash
 colcon test
 ```
 
-## How to generate coverage reports after running colcon test
+### Generating Coverage Reports After Running Colcon Test
 
-First make sure we have run the unit test already.
-
+To obtain the coverage reports (first make sure to have run the unit test already), execute the comands listed below.
 ```bash
 colcon test
-```
-
-### Coverage report for `my_controller`:
-
-``` bash
-ros2 run my_controller generate_coverage_report.bash
-open build/my_controller/test_coverage/index.html
-```
-
-### Coverage report for `my_model`:
-
-``` bash
-colcon build \
-       --event-handlers console_cohesion+ \
-       --packages-select my_model \
-       --cmake-target "test_coverage" \
-       --cmake-arg -DUNIT_TEST_ALREADY_RUN=1
-open build/my_model/test_coverage/index.html
-```
-
-### Automate the previous steps and combine both coverage reports
-
-``` bash
-./do-tests-and-coverage.bash
 ```
 
 ## How to generate project documentation
@@ -165,6 +56,17 @@ open build/my_model/test_coverage/index.html
 ./do-docs.bash
 ```
 
-## How to use GitHub CI to upload coverage report to Codecov
+### Static Code Analysis
+To check the static code analysis of this project, check the `results/cppcheck_output.txt` file to see the output on using the *cppcheck* tool. You should not be able to see any issues or problems, with all the files checked successfully.
 
-There is already a `.github/workflows/run-unit-test-and-upload-codecov.yml` file provided.  But we still need to create a codecov account.
+This can be self-verified as well by running the following command in the highest-level directory of the project.
+```sh
+# Install cppcheck (ignore if already installed):
+  sudo apt install cppcheck
+# Navigate to the 'src' directory
+  cd src/
+# Self-check the static code analysis using Cppcheck:
+  cppcheck --enable=all --std=c++11 --std=c++17 --enable=information --check-config --suppress=missingInclude --suppress=*:*test*/ --suppress=unmatchedSuppression $( find . -name *.cpp | grep -vE -e "^./build/")
+```
+
+On running the above command, you should see the same output in the `results/cppcheck_output.txt` file.
