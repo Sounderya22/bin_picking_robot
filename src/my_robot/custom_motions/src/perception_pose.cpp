@@ -127,7 +127,7 @@ int main(int argc, char **argv) {
   target_pose1.position.z += 0.1;
   retreat_waypoints.push_back(target_pose1);
 
-  target_pose1.position.z += 0.17;
+  target_pose1.position.z += 0.1;
   retreat_waypoints.push_back(target_pose1);
 
   moveit_msgs::msg::RobotTrajectory trajectory_retreat;
@@ -278,7 +278,7 @@ int main(int argc, char **argv) {
   target_pose2.position.z += 0.1;
   retreat_waypoints.push_back(target_pose2);
 
-  target_pose2.position.z += 0.17;
+  target_pose2.position.z += 0.07;
   retreat_waypoints.push_back(target_pose2);
 
 
