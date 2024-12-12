@@ -15,7 +15,6 @@ The product backlog can be found [here](https://docs.google.com/spreadsheets/d/1
 ## Sprint Planning
 The sprint planning sheet can be found [here](https://docs.google.com/document/d/1k97gEPnfccyWxz8z-w4MMVNBKQnhrrpmbxowb54gQMY/edit?usp=sharing).
 ## Dependencies with license
-- [YOLOv8](https://docs.ultralytics.com/models/yolov8/) - GNU Affero General Public License v3.0
 - [Intel RealSense SDK](https://github.com/IntelRealSense/librealsense) - Apache License 2.0
 - [Point Cloud Library](https://github.com/PointCloudLibrary/pcl) - BSD-2-Clause License
 - [Grasp Pose Detection(GPD)](https://github.com/atenpas/gpd) - MIT License
@@ -70,4 +69,4 @@ This can be self-verified as well by running the following command in the highes
 
 ```
 
-On running the above command, you should see the same output in the `results/cppcheck_results.txt` file.
+On running the above command, you should see the same output in the `cppcheck_results.txt` file.
