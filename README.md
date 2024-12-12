@@ -70,3 +70,10 @@ This can be self-verified as well by running the following command in the highes
 ```
 
 On running the above command, you should see the same output in the `cppcheck_results.txt` file.
+
+### Running the simulation
+```bash
+ros2 launch ur_simulation_gazebo ur_sim_pick_and_place.launch.py
+```
+
+
