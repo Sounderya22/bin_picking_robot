@@ -7,6 +7,6 @@ ament_package()
 
 install(DIRECTORY config launch rviz srdf DESTINATION share/${PROJECT_NAME}
   PATTERN "setup_assistant.launch" EXCLUDE)
-install(DIRECTORY config DESTINATION share/${PROJECT_NAME})
+install(DIRECTORY config rviz srdf DESTINATION share/${PROJECT_NAME})
 install(FILES .setup_assistant DESTINATION share/${PROJECT_NAME})
 

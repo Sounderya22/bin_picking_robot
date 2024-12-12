@@ -5,7 +5,7 @@
     <link name="biscuits_link">
       <inertial>
         <pose>0 0 0 0 0 0</pose>
-        <mass>0.1</mass>
+        <mass>0.01</mass>
       </inertial>
 
       <visual name="biscuits_visual">

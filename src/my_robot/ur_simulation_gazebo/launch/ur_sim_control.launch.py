@@ -120,7 +120,7 @@ def launch_setup(context, *args, **kwargs):
 
     # Write the robot description to the file
     with open(filename, 'w') as file:
-        file.write(str(robot_description))
+        file.write(str(robot_description_content.perform(context)))
 
     print(f"Robot description written to {filename}")
     robot_state_publisher_node = Node(
