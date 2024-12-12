@@ -26,3 +26,8 @@ moveit_simple_controller_manager:
     parallel: true
     joints:
       - robotiq_85_left_knuckle_joint 
+      - robotiq_85_right_knuckle_joint 
+      - robotiq_85_left_inner_knuckle_joint
+      - robotiq_85_right_inner_knuckle_joint
+      - robotiq_85_left_finger_tip_joint
+      - robotiq_85_right_finger_tip_joint

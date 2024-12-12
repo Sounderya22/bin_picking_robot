@@ -261,16 +261,12 @@
             <parent link="${prefix}robotiq_85_left_knuckle_link" />
             <child link="${prefix}robotiq_85_left_finger_link" />
             <origin xyz="0.03152616 0.0 -0.00376347" rpy="0 0 0" />
-            <!-- <mimic joint="${prefix}robotiq_85_left_knuckle_joint" multiplier="1"/> -->
-
         </joint>
 
         <joint name="${prefix}robotiq_85_right_finger_joint" type="fixed">
             <parent link="${prefix}robotiq_85_right_knuckle_link" />
             <child link="${prefix}robotiq_85_right_finger_link" />
             <origin xyz="-0.03152616 0.0 -0.00376347" rpy="0 0 0" />
-            <!-- <mimic joint="${prefix}robotiq_85_left_knuckle_joint" multiplier="-1"/> -->
-
         </joint>
 
         <joint name="${prefix}robotiq_85_left_inner_knuckle_joint" type="continuous">
@@ -345,7 +341,7 @@
 		        <plugin>gazebo_ros2_control/GazeboSystem</plugin>
 	    	</hardware>
 
-	    	<joint name="robotiq_85_left_knuckle_joint">
+	    	<joint name="${prefix}robotiq_85_left_knuckle_joint">
 	    		<command_interface name="position">
 	    			<param name="min">0</param>
 	    			<param name="max">0.8</param>
@@ -354,6 +350,7 @@
 	    		<state_interface name="velocity"/>
 	    		<state_interface name="effort"/>
 	    	</joint>
+
 	  	</ros2_control>
 
     </xacro:macro>
@@ -366,7 +363,7 @@
     </xacro:if>
 
     <xacro:if value="${not gripper_only}">
-    	<xacro:robotiq_gripper name="RobotiqGripperHardwareInterface" prefix="" parent="ur5e_tool0" use_fake_hardware="$(arg use_fake_hardware)">
+    	<xacro:robotiq_gripper name="RobotiqGripperHardwareInterface" prefix="" parent="wrist_3_link" use_fake_hardware="$(arg use_fake_hardware)">
         	<origin xyz="0 0 0" rpy="0 0 0" />
     	</xacro:robotiq_gripper>
     </xacro:if>
