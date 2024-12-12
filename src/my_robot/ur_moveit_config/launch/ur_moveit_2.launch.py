@@ -128,7 +128,6 @@ def launch_setup(context, *args, **kwargs):
         ]
     )
     robot_description = {"robot_description": robot_description_content}
-    print("Line 131, moveit launch")
 
     # MoveIt Configuration
     robot_description_semantic_content = Command(
@@ -151,7 +150,6 @@ def launch_setup(context, *args, **kwargs):
     )
     robot_description_semantic = {"robot_description_semantic": robot_description_semantic_content}
     
-    print("Line 153, moveit launch")
     publish_robot_description_semantic = {
         "publish_robot_description_semantic": _publish_robot_description_semantic
     }
@@ -159,7 +157,6 @@ def launch_setup(context, *args, **kwargs):
     robot_description_kinematics = PathJoinSubstitution(
         [FindPackageShare(moveit_config_package), "config", "kinematics.yaml"]
     )
-    print("Line 161, moveit launch")
 
 
     robot_description_planning = {
@@ -168,7 +165,6 @@ def launch_setup(context, *args, **kwargs):
             os.path.join("config", str(moveit_joint_limits_file.perform(context))),
         )
     }
-    print("Line 171, moveit launch")
 
     # Planning Configuration
     ompl_planning_pipeline_config = {

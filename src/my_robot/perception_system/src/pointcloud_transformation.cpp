@@ -88,14 +88,14 @@ private:
           cloud_filtered->points[i].x = cloud_out->points[i].x + nd(rng);
           cloud_filtered->points[i].y = cloud_out->points[i].y + nd(rng);
           cloud_filtered->points[i].z = cloud_out->points[i].z + nd(rng);
-          cloud_filtered->points[i].r = cloud_out->points[i].r;
+          cloud_filtered->points[i].r = cloud_out->points[i].b;
           cloud_filtered->points[i].g = cloud_out->points[i].g;
-          cloud_filtered->points[i].b = cloud_out->points[i].b;
+          cloud_filtered->points[i].b = cloud_out->points[i].r;
         }
 
-        *cloud_out += *cloud_filtered;
+        // *cloud_out += *cloud_filtered;
 
-        pcl::toROSMsg(*cloud_out, noisy_buffer);
+        pcl::toROSMsg(*cloud_filtered, noisy_buffer);
 
         pcl_pub_->publish(noisy_buffer);
       }

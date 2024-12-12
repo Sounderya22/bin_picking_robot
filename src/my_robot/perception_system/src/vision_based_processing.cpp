@@ -23,7 +23,10 @@
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/point_cloud2.hpp>
 #include <pcl_conversions/pcl_conversions.h>
-
+#include <geometry_msgs/msg/pose_stamped.hpp>
+#include <tf2_ros/buffer.h>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
+#include <tf2_ros/transform_listener.h>
 
 pcl::PointCloud<pcl::PointXYZ>::Ptr
 applySOR(const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud) {
@@ -38,63 +41,6 @@ applySOR(const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud) {
   return filtered_cloud;
 }
 
-// cv::Mat cropImageFromPoints(const cv::Mat& image,
-//                             const std::vector<cv::Point>& points) {
-//   if (points.size() != 4) {
-//     throw std::invalid_argument("Four points are required for cropping.");
-//   }
-
-//   // Find the bounding rectangle of the four points
-//   cv::Rect boundingRect = cv::boundingRect(points);
-
-//   // Create a mask
-//   cv::Mat mask = cv::Mat::zeros(image.size(), CV_8UC1);
-//   std::vector<std::vector<cv::Point>> contours;
-//   contours.push_back(std::vector<cv::Point>(points.begin(), points.end()));
-//   cv::fillPoly(mask, contours, cv::Scalar(255));
-
-//   // Crop the image
-//   cv::Mat croppedImage;
-//   image(boundingRect).copyTo(croppedImage, mask(boundingRect));
-
-//   return croppedImage;
-// }
-
-// cv::Mat cropImageFromPoints(const cv::Mat& image,
-//                             const std::vector<cv::Point>& points,
-//                             int padding) {
-//   if (points.size() != 4) {
-//     throw std::invalid_argument("Four points are required for cropping.");
-//   }
-
-//   // Find the bounding rectangle of the four points
-//   cv::Rect boundingRect = cv::boundingRect(points);
-
-//   // Apply padding to create an inner rectangle
-//   cv::Rect innerRect = boundingRect + cv::Point(padding, padding) +
-//                        cv::Size(-2 * padding, -2 * padding);
-
-//   // Ensure the inner rectangle is within the image bounds
-//   innerRect &= cv::Rect(0, 0, image.cols, image.rows);
-
-//   // Check if the inner rectangle is valid
-//   if (innerRect.width <= 0 || innerRect.height <= 0) {
-//     throw std::runtime_error("Padding is too large, resulting in an invalid "
-//                              "inner rectangle.");
-//   }
-
-//   // Create a mask
-//   cv::Mat mask = cv::Mat::zeros(image.size(), CV_8UC1);
-//   std::vector<std::vector<cv::Point>> contours;
-//   contours.push_back(std::vector<cv::Point>(points.begin(), points.end()));
-//   cv::fillPoly(mask, contours, cv::Scalar(255));
-
-//   // Crop the image using the inner rectangle
-//   cv::Mat croppedImage;
-//   image(innerRect).copyTo(croppedImage, mask(innerRect));
-
-//   return croppedImage;
-// }
 
 pcl::PointCloud<pcl::PointXYZ>::Ptr
 removePlane(const pcl::PointCloud<pcl::PointXYZ>::Ptr& input_cloud,
@@ -204,49 +150,6 @@ getPoseFromCluster(const pcl::PointCloud<pcl::PointXYZ>::Ptr& cluster) {
   transformation.block<3, 1>(0, 3) = centroid.head<3>();
   return transformation;
 }
-
-
-
-// cv::Mat cropImageFromPoints(const cv::Mat& image,
-//                             const std::vector<cv::Point>& points,
-//                             float paddingPercentage) {
-//   if (points.size() != 4) {
-//     throw std::invalid_argument("Four points are required for cropping.");
-//   }
-
-//   // Find the bounding rectangle of the four points
-//   cv::Rect boundingRect = cv::boundingRect(points);
-
-//   // Calculate padding based on percentage of the bounding rectangle size
-//   int paddingX = static_cast<int>(boundingRect.width * paddingPercentage);
-//   int paddingY = static_cast<int>(boundingRect.height * paddingPercentage);
-
-//   // Apply padding to create an inner rectangle
-//   cv::Rect innerRect = boundingRect + cv::Point(paddingX, paddingY) +
-//                        cv::Size(-2 * paddingX, -2 * paddingY);
-
-//   // Ensure the inner rectangle is within the image bounds
-//   innerRect &= cv::Rect(0, 0, image.cols, image.rows);
-
-//   // Check if the inner rectangle is valid
-//   if (innerRect.width <= 0 || innerRect.height <= 0) {
-//     throw std::runtime_error("Padding is too large, resulting in an invalid "
-//                              "inner rectangle.");
-//   }
-
-//   // Create a mask
-//   cv::Mat mask = cv::Mat::zeros(image.size(), CV_8UC1);
-//   std::vector<std::vector<cv::Point>> contours;
-//   contours.push_back(std::vector<cv::Point>(points.begin(), points.end()));
-//   cv::fillPoly(mask, contours, cv::Scalar(255));
-
-//   // Crop the image using the inner rectangle
-//   cv::Mat croppedImage;
-//   image(innerRect).copyTo(croppedImage, mask(innerRect));
-
-//   return croppedImage;
-// }
-
 
 
 pcl::PointCloud<pcl::PointXYZRGB>::Ptr applySOR(const pcl::PointCloud<pcl::PointXYZRGB>::Ptr& cloud) {
@@ -364,6 +267,72 @@ getPoseFromCluster(const pcl::PointCloud<pcl::PointXYZRGB>::Ptr& cluster) {
 }
 
 
+// Function to transform a pose from one frame to another
+Eigen::Matrix4f transformPoseToBaseLink(
+    const Eigen::Matrix4f &input_pose,
+    const std::string &base_link_frame,
+    const std::string &input_frame,
+    std::shared_ptr<tf2_ros::Buffer> tf_buffer,
+    rclcpp::Logger logger)
+{
+    try
+    {
+        // Convert Eigen::Matrix4f to geometry_msgs::msg::PoseStamped
+        geometry_msgs::msg::PoseStamped input_pose_msg;
+        input_pose_msg.header.frame_id = input_frame;
+        input_pose_msg.header.stamp = rclcpp::Clock().now();
+
+        // Extract translation and rotation from Eigen matrix
+        Eigen::Vector3f translation = input_pose.block<3, 1>(0, 3);
+        Eigen::Matrix3f rotation_matrix = input_pose.block<3, 3>(0, 0);
+
+        Eigen::Quaternionf quaternion(rotation_matrix); // Convert rotation matrix to quaternion
+
+        // Set position and orientation in the PoseStamped message
+        input_pose_msg.pose.position.x = translation.x();
+        input_pose_msg.pose.position.y = translation.y();
+        input_pose_msg.pose.position.z = translation.z();
+        input_pose_msg.pose.orientation.x = quaternion.x();
+        input_pose_msg.pose.orientation.y = quaternion.y();
+        input_pose_msg.pose.orientation.z = quaternion.z();
+        input_pose_msg.pose.orientation.w = quaternion.w();
+
+        // Transform the pose to the base_link frame
+        geometry_msgs::msg::PoseStamped transformed_pose_msg;
+        transformed_pose_msg = tf_buffer->transform(input_pose_msg, base_link_frame);
+
+        // Convert the transformed PoseStamped back to Eigen::Matrix4f
+        Eigen::Matrix4f transformed_pose = Eigen::Matrix4f::Identity();
+
+        // Set the translation part
+        transformed_pose.block<3, 1>(0, 3) << transformed_pose_msg.pose.position.x,
+            transformed_pose_msg.pose.position.y,
+            transformed_pose_msg.pose.position.z;
+
+        // Set the rotation part
+        Eigen::Quaternionf transformed_quaternion(
+            transformed_pose_msg.pose.orientation.w,
+            transformed_pose_msg.pose.orientation.x,
+            transformed_pose_msg.pose.orientation.y,
+            transformed_pose_msg.pose.orientation.z);
+        transformed_pose.block<3, 3>(0, 0) = transformed_quaternion.toRotationMatrix();
+
+        // Log the result
+        RCLCPP_INFO(logger, "Transformed Position: [%.3f, %.3f, %.3f]",
+                    transformed_pose(0, 3), transformed_pose(1, 3), transformed_pose(2, 3));
+        RCLCPP_INFO(logger, "Transformed Orientation (Quaternion): [%.3f, %.3f, %.3f, %.3f]",
+                    transformed_quaternion.x(), transformed_quaternion.y(),
+                    transformed_quaternion.z(), transformed_quaternion.w());
+
+        return transformed_pose;
+    }
+    catch (const tf2::TransformException &ex)
+    {
+        RCLCPP_ERROR(logger, "Failed to transform pose: %s", ex.what());
+        throw; // Rethrow exception for caller to handle
+    }
+}
+
 
 class PointCloudProcessor : public rclcpp::Node
 {
@@ -372,17 +341,22 @@ public:
     {
         // Subscriber to the input PointCloud2 topic
         subscription_ = this->create_subscription<sensor_msgs::msg::PointCloud2>(
-            "/top_rgbd_depth_sensor/points",  // Replace with your input topic name
+            "/ur_manipulator/base_link/points",  // Replace with your input topic name
             10,
             std::bind(&PointCloudProcessor::pointCloudCallback, this, std::placeholders::_1));
 
         // Publisher for the filtered PointCloud2 topic
         publisher_ = this->create_publisher<sensor_msgs::msg::PointCloud2>("filtered_pointcloud", 10);
+            // Create a TF buffer and listener
+        tf_buffer_ = std::make_shared<tf2_ros::Buffer>(this->get_clock());
+        tf_listener_ = std::make_shared<tf2_ros::TransformListener>(*tf_buffer_);
 
         RCLCPP_INFO(this->get_logger(), "Point Cloud Processor Node has started.");
     }
 
 private:
+        std::shared_ptr<tf2_ros::Buffer> tf_buffer_;
+        std::shared_ptr<tf2_ros::TransformListener> tf_listener_;
     void pointCloudCallback(const sensor_msgs::msg::PointCloud2::SharedPtr msg)
     {
         Eigen::Matrix4f pose;
@@ -426,6 +400,44 @@ private:
         std::stringstream orientation_stream;
         orientation_stream << "Orientation (Euler angles): " << euler_angles.transpose();
         RCLCPP_INFO(this->get_logger(), orientation_stream.str().c_str());
+        std::stringstream ss;
+        ss << pose.format(Eigen::IOFormat(Eigen::StreamPrecision, Eigen::DontAlignCols, ", ", ";\n", "", "", "[", "]"));
+
+            // Log the result using RCLCPP_INFO
+        RCLCPP_INFO(this->get_logger(), "Final Transformed Pose:\n%s", ss.str().c_str());
+       /*  std::string base_link_frame = "base_link";
+        std::string input_frame = "world";
+        try
+        {
+            Eigen::Matrix4f result =
+            transformPoseToBaseLink(pose, base_link_frame, input_frame, tf_buffer_, this->get_logger());
+
+            // Convert the Eigen matrix to a string using stringstream
+            std::stringstream ss;
+            ss << result.format(Eigen::IOFormat(Eigen::StreamPrecision, Eigen::DontAlignCols, ", ", ";\n", "", "", "[", "]"));
+
+            // Log the result using RCLCPP_INFO
+            RCLCPP_INFO(this->get_logger(), "Final Transformed Pose:\n%s", ss.str().c_str());
+            // RCLCPP_INFO(this->get_logger(), "Final Transformed Pose:\n%s", result.format(Eigen::IOFormat()));
+                position = result.block<3, 1>(0, 3);
+                rotation = result.block<3, 3>(0, 0);
+                euler_angles = rotation.eulerAngles(0, 1, 2);
+                std::cout << "Position: " << position.transpose() << std::endl;
+                std::cout << "Orientation (Euler angles): " << euler_angles.transpose()
+                << std::endl;
+
+                std::stringstream position_stream;
+                position_stream << "Final Position: " << position.transpose();
+                RCLCPP_INFO(this->get_logger(), position_stream.str().c_str());
+
+                std::stringstream orientation_stream;
+                orientation_stream << "Final Orientation (Euler angles): " << euler_angles.transpose();
+                RCLCPP_INFO(this->get_logger(), orientation_stream.str().c_str());
+        }
+        catch (const std::exception &e)
+        {
+            RCLCPP_ERROR(this->get_logger(), "Error transforming pose: %s", e.what());
+        } */
 
         // Convert filtered PCL PointCloud back to ROS PointCloud2 and publish it
         sensor_msgs::msg::PointCloud2 output_msg;

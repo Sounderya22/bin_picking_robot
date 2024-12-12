@@ -79,8 +79,6 @@ def launch_setup(context, *args, **kwargs):
         [FindPackageShare(runtime_config_package), "config", controllers_file]
     )
 
-    
-
     rviz_config_file = PathJoinSubstitution(
         [FindPackageShare(description_package), "rviz", "view_robot.rviz"]
     )
@@ -178,7 +176,6 @@ def launch_setup(context, *args, **kwargs):
         arguments=[LaunchConfiguration("gripper_controller"), "-c", "/controller_manager"],
     )
 
-
     # Gazebo nodes
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -232,6 +229,7 @@ def generate_launch_description():
             default_value="ur5e",
         )
     )
+    
     declared_arguments.append(
         DeclareLaunchArgument(
             "safety_limits",
@@ -239,6 +237,7 @@ def generate_launch_description():
             description="Enables the safety limits controller if true.",
         )
     )
+
     declared_arguments.append(
         DeclareLaunchArgument(
             "safety_pos_margin",
@@ -246,6 +245,7 @@ def generate_launch_description():
             description="The margin to lower and upper limits in the safety controller.",
         )
     )
+    
     declared_arguments.append(
         DeclareLaunchArgument(
             "safety_k_position",
@@ -253,6 +253,7 @@ def generate_launch_description():
             description="k-position factor in the safety controller.",
         )
     )
+
     # General arguments
     declared_arguments.append(
         DeclareLaunchArgument(
@@ -262,6 +263,7 @@ def generate_launch_description():
         Usually the argument is not set, it enables use of a custom setup.',
         )
     )
+
     declared_arguments.append(
         DeclareLaunchArgument(
             "controllers_file",
@@ -269,6 +271,7 @@ def generate_launch_description():
             description="YAML file with the controllers configuration.",
         )
     )
+
     declared_arguments.append(
         DeclareLaunchArgument(
             "description_package",
@@ -277,6 +280,7 @@ def generate_launch_description():
         is not set, it enables use of a custom description.",
         )
     )
+
     declared_arguments.append(
         DeclareLaunchArgument(
             "description_file",
@@ -284,6 +288,7 @@ def generate_launch_description():
             description="URDF/XACRO description file with the robot.",
         )
     )
+
     declared_arguments.append(
         DeclareLaunchArgument(
             "prefix",
@@ -293,6 +298,7 @@ def generate_launch_description():
         have to be updated.",
         )
     )
+
     declared_arguments.append(
         DeclareLaunchArgument(
             "start_joint_controller",
@@ -318,19 +324,17 @@ def generate_launch_description():
     )
 
     declared_arguments.append(
-        DeclareLaunchArgument("launch_rviz", default_value="true", description="Launch RViz?")
-    )
+        DeclareLaunchArgument("launch_rviz", default_value="true", description="Launch RViz?"))
+    
     declared_arguments.append(
         DeclareLaunchArgument(
-            "gazebo_gui", default_value="true", description="Start gazebo with GUI?"
-        )
-    )
+            "gazebo_gui", default_value="true", description="Start gazebo with GUI?"))
+    
     declared_arguments.append(
     DeclareLaunchArgument(
     name='world',
-    default_value='test1.world',
+    default_value='test4.world',
     description='Name of the world model file to load'))
-
 
     declared_arguments.append(DeclareLaunchArgument(
     name='x',
@@ -362,5 +366,4 @@ def generate_launch_description():
         default_value='0.0',
         description='yaw angle of initial orientation, radians'))
     
-
     return LaunchDescription(declared_arguments + [OpaqueFunction(function=launch_setup)])
