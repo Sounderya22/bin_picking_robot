@@ -38,6 +38,16 @@ colcon build \
     --cmake-target "docs"
 ##echo "open src/my_controller/docs/html/index.html"
 
+
+###############################
+# 3. run my_controller's "docs" target
+###############################
+colcon build \
+    --event-handlers console_cohesion+ \
+    --packages-select custom_motions \
+    --cmake-target "docs"
+##echo "open src/my_controller/docs/html/index.html"
+
 ###############################
 # 4. combine all docs
 ###############################
