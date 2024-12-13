@@ -29,31 +29,26 @@
 
 import logging
 import os
-import pytest
 import sys
 import time
 import unittest
 
-
-import rclpy
-from rclpy.node import Node
-from launch import LaunchDescription
-from launch.actions import (
-    IncludeLaunchDescription,
-)
-from launch.substitutions import PathJoinSubstitution
-from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch_ros.substitutions import FindPackageShare
-from launch_testing.actions import ReadyToTest
 import launch_testing
-
+import pytest
+import rclpy
 from builtin_interfaces.msg import Duration
 from control_msgs.action import FollowJointTrajectory
+from launch import LaunchDescription
+from launch.actions import IncludeLaunchDescription
+from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.substitutions import PathJoinSubstitution
+from launch_ros.substitutions import FindPackageShare
+from launch_testing.actions import ReadyToTest
+from rclpy.node import Node
 from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 
 sys.path.append(os.path.dirname(__file__))
 from test_common import ActionInterface, wait_for_controller  # noqa: E402
-
 
 TIMEOUT_EXECUTE_TRAJECTORY = 30
 

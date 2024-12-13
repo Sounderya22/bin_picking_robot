@@ -29,9 +29,8 @@ import logging
 import time
 
 import rclpy
-from rclpy.action import ActionClient
-
 from controller_manager_msgs.srv import ListControllers
+from rclpy.action import ActionClient
 
 TIMEOUT_WAIT_SERVICE = 10
 TIMEOUT_WAIT_SERVICE_INITIAL = 120

@@ -64,7 +64,7 @@ install(TARGETS vision_pcl_processing
 
 
 
-install(DIRECTORY config launch dl_models 
+install(DIRECTORY config launch dl_models
   DESTINATION share/${PROJECT_NAME}
 )
 

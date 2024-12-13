@@ -13,14 +13,13 @@
 #
 # See https://github.com/pre-commit/pre-commit
 
-
 repos:
   # Standard hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
     hooks:
       - id: check-added-large-files
-        args: ['--maxkb=1500']
+        args: ["--maxkb=1500"]
       - id: check-ast
       - id: check-case-conflict
       - id: check-docstring-first
@@ -31,7 +30,7 @@ repos:
       - id: debug-statements
       - id: end-of-file-fixer
       - id: mixed-line-ending
-      - id: check-byte-order-marker  # Forbid UTF-8 byte-order markers
+      - id: check-byte-order-marker # Forbid UTF-8 byte-order markers
       - id: trailing-whitespace
         # This need to be a one to one copy from the Universal Robots legal no matter trailing spaces or not
         exclude: |
@@ -53,7 +52,6 @@ repos:
       - id: black
         args: ["--line-length=100"]
 
-
   - repo: https://github.com/pycqa/flake8
     rev: 7.1.0
     hooks:
@@ -63,11 +61,10 @@ repos:
   # CPP hooks
   # The same options as in ament_cppcheck are used, but its not working...
   #- repo: https://github.com/pocc/pre-commit-hooks
-    #rev: v1.1.1
-    #hooks:
-      #- id: cppcheck
-        #args: ['--error-exitcode=1', '-f', '--inline-suppr', '-q', '-rp', '--suppress=internalAstError', '--suppress=unknownMacro', '--verbose']
-
+  #rev: v1.1.1
+  #hooks:
+  #- id: cppcheck
+  #args: ['--error-exitcode=1', '-f', '--inline-suppr', '-q', '-rp', '--suppress=internalAstError', '--suppress=unknownMacro', '--verbose']
 
   # Cmake hooks
   - repo: local
@@ -95,7 +92,7 @@ repos:
     rev: v1.1.2
     hooks:
       - id: doc8
-        args: ['--max-line-length=100', '--ignore=D001']
+        args: ["--max-line-length=100", "--ignore=D001"]
 
   - repo: https://github.com/pre-commit/pygrep-hooks
     rev: v1.10.0
@@ -110,5 +107,5 @@ repos:
     rev: v2.3.0
     hooks:
       - id: codespell
-        args: ['--write-changes']
+        args: ["--write-changes"]
         exclude: \.(svg|pyc)$

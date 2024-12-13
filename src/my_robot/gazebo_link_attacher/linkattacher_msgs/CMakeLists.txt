@@ -35,9 +35,9 @@ endif()
 ############## ROS2 .srv ##############
 
 install(
-  DIRECTORY  
+  DIRECTORY
     srv
-  DESTINATION 
+  DESTINATION
     share/${PROJECT_NAME}
 )
 find_package(rosidl_default_generators REQUIRED)

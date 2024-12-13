@@ -23,7 +23,7 @@
           </mesh>
         </geometry>
       </visual>
-      
+
       <collision name="biscuits_collision">
         <pose>0.015 0.01 0.075 0 0 2.2</pose>
         <geometry>

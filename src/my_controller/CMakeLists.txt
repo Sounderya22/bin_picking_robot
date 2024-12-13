@@ -75,7 +75,7 @@ else()
 endif()
 
 ###################################
-# Specify Targets 
+# Specify Targets
 ###################################
 # create a target to build documentation
 doxygen_add_docs(docs           # target name
@@ -93,7 +93,7 @@ add_executable(listener
 # Add executable dependencis:
 ament_target_dependencies(talker
   rclcpp std_msgs my_model)
-# target_link_libraries(talker 
+# target_link_libraries(talker
 # my_model)
 
 ament_target_dependencies(listener
@@ -114,7 +114,7 @@ install(TARGETS
 
 # install launch files
 install(DIRECTORY
-  launch 
+  launch
   DESTINATION share/${PROJECT_NAME})
 
 ## Install some arbitrary executables

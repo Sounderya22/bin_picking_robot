@@ -3,7 +3,7 @@
 Here's a simple ROS2 package that demonstrates how integration test
 (aka level 2 unit test) can be done using Catch2.
 
-This ROS2 package depends on the `my_model` module.  This dependency
+This ROS2 package depends on the `my_model` module. This dependency
 is specified in the package's `package.xml` file:
 
 ```
@@ -11,7 +11,7 @@ is specified in the package's `package.xml` file:
 ```
 
 Alternatively, we could also specify the dependency by creating a
-`colcon.pkg` file with the content listed below.  But since this is a
+`colcon.pkg` file with the content listed below. But since this is a
 ROS package, we must use `package.xml` instead of `colcon.pkg`.
 Otherwise the package will not show up in the list of ROS2 packages
 (ie., output of `ros2 pkg list`).
@@ -25,7 +25,8 @@ Otherwise the package will not show up in the list of ROS2 packages
 ```
 
 ## How to build as a stand-alone CMake project
-First, make sure you have already built the `my_mode` package.  See `../my_model/README.md`.
+
+First, make sure you have already built the `my_mode` package. See `../my_model/README.md`.
 
 ```bash
 # Configure the project and generate a native build system:
@@ -52,7 +53,7 @@ First, make sure you have already built the `my_mode` package.  See `../my_model
   rm -rf build/
 ```
 
-## Build and run ROS2 integration test 
+## Build and run ROS2 integration test
 
 The ROS2 integration test executes the `my_controller` ROS2 package.
 Therefore, we need to use colcon to build `my_controller` as a ROS2 package.
@@ -63,4 +64,4 @@ colcon build --packages-select my_controller  # will also build the "my_model" d
 colcon test --event-handlers console_direct+ --packages-select my_controller
 ```
 
-The integration test uses the Catch2 test framework that is similar to Google Test.  In the particular example, it tests the `talker` node that is provided by the `my_controller` ROS2 package.  See [CMakeLists.txt](CMakeLists.txt), [test/integration_test.cpp](test/integration_test.cpp) and [launch/integration_test.launch.yaml](launch/integration_test.launch.yaml).
+The integration test uses the Catch2 test framework that is similar to Google Test. In the particular example, it tests the `talker` node that is provided by the `my_controller` ROS2 package. See [CMakeLists.txt](CMakeLists.txt), [test/integration_test.cpp](test/integration_test.cpp) and [launch/integration_test.launch.yaml](launch/integration_test.launch.yaml).

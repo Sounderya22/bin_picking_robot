@@ -1,9 +1,9 @@
 # ros2_integration_test
 
-An example of testing C++ ROS2 nodes (ie., ROS2 integration test or level 2 unit testing) using the catch2 framework. 
+An example of testing C++ ROS2 nodes (ie., ROS2 integration test or level 2 unit testing) using the catch2 framework.
 
 First, move this directory to the `src/` folder of your colcon
-workspace.  This is desirable or you may get a lot of errors from
+workspace. This is desirable or you may get a lot of errors from
 `ament_lint_cmake`.
 
 For example, your workspace directory structure should look like this:
@@ -20,65 +20,72 @@ colcon_ws/
     └── ros_package3/
 ```
 
-``` bash
-$ mkdir -p ~/colcon_ws/src
-$ cd ~/colcon_ws/src
-$ git clone git@github.com:TommyChangUMD/ros2_integration_test.git
+```bash
+mkdir -p ~/colcon_ws/src
+cd ~/colcon_ws/src
+git clone git@github.com:TommyChangUMD/ros2_integration_test.git
 ```
-
 
 ## Terminology
 
-- **Auxiliary test node**: the node under test
-- **Integration test node**:  the node which performs the test
+-   **Auxiliary test node**: the node under test
+-   **Integration test node**: the node which performs the test
 
 ## Install the catch_ros2
 
-``` bash
-$ source /opt/ros/humble/setup.bash  # if needed
-$ apt install ros-${ROS_DISTRO}-catch-ros2
+```bash
+source /opt/ros/humble/setup.bash  # if needed
+apt install ros-${ROS_DISTRO}-catch-ros2
 ```
 
 Verify that the package is installed
-``` bash
+
+```bash
 $ source /opt/ros/humble/setup.bash  # if needed
 $ ros2 pkg list | grep catch_ros2
   catch_ros2
 ```
 
-see https://github.com/ngmor/catch_ros2/tree/main
+see <https://github.com/ngmor/catch_ros2/tree/main>
 
-## How to Compile:
+## How to Compile
+
 ```bash
-$ cd ~/colcon_ws/   # assuming your workspace is at '~/colcon_ws'
-$ rm -rf install/ build/
-$ source /opt/ros/humble/setup.bash  # if needed
-$ colcon build --packages-select integration_test
+cd ~/colcon_ws/   # assuming your workspace is at '~/colcon_ws'
+rm -rf install/ build/
+source /opt/ros/humble/setup.bash  # if needed
+colcon build --packages-select integration_test
 ```
 
-## How to Run:
+## How to Run
+
 First, soruce the setup file:
+
 ```bash
-$ source install/setup.bash
+source install/setup.bash
 ```
 
-### then, run the test and look at the output:
+### then, run the test and look at the output
+
 ```bash
-$ colcon test --packages-select integration_test
-$ cat log/latest_test/integration_test/stdout_stderr.log
+colcon test --packages-select integration_test
+cat log/latest_test/integration_test/stdout_stderr.log
 ```
 
-### alternatively, you can combine these into one step:
+### alternatively, you can combine these into one step
+
 ```bash
-$ colcon test  --return-code-on-test-failure --event-handlers console_cohesion+ --packages-select integration_test
-$ echo ?
+colcon test  --return-code-on-test-failure --event-handlers console_cohesion+ --packages-select integration_test
+echo ?
 ```
 
-### check the return status (after colcon test):
+### check the return status (after colcon test)
+
 You don't have to re-run the test to see the old result. You can just do:
+
 ```
-$ colcon test-result --verbose --test-result-base build/integration_test
-$ echo $?
+colcon test-result --verbose --test-result-base build/integration_test
+echo $?
 ```
 
 ## Example output
@@ -114,7 +121,7 @@ test 1
 1: [integration_test_node-3] Randomness seeded to: 2027099100
 1: [integration_test_node-3] ===============================================================================
 1: [integration_test_node-3] All tests passed (2 assertions in 2 test cases)
-1: [integration_test_node-3] 
+1: [integration_test_node-3]
 1: [INFO] [integration_test_node-3]: process has finished cleanly [pid 1534612]
 1: [INFO] [launch]: process[integration_test_node-3] was required: shutting down launched system
 1: [INFO] [talker-2]: sending signal 'SIGINT' to process[talker-2]

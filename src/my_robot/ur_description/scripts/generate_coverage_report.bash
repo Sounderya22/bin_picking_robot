@@ -3,7 +3,7 @@
 # This script should be invoked by "ros2 run" and after the unit test
 # has been run.
 #
-set -ue -o pipefail             # stop at the first error
+set -ue -o pipefail # stop at the first error
 
 PROG_DIR=$(dirname $(readlink -f "$0")) # where is the program located
 EXEC_DIR=$(pwd -P)                      # where are we executing from
@@ -28,31 +28,28 @@ lcov --capture --directory $BUILD_DIR --output-file $BUILD_DIR/coverage.info
 # 3.) Exclude some files from the reoport
 rm -f $BUILD_DIR/coverage_cleaned.info
 lcov --remove $BUILD_DIR/coverage.info \
-     '/opt/*' \
-     '/usr/*' \
-     '*rclcpp/*' \
-     '*libstatistics_collector/*' \
-     '*rosidl_runtime*' \
-     '*rcl_interfaces*' \
-     '*rmw/rmw/*' \
-     '*tracetools/*' \
-     '*_msgs/*' \
-     '*/gtest*' \
-     'gtest/*' \
-     --output-file $BUILD_DIR/coverage_cleaned.info; \
+    '/opt/*' \
+    '/usr/*' \
+    '*rclcpp/*' \
+    '*libstatistics_collector/*' \
+    '*rosidl_runtime*' \
+    '*rcl_interfaces*' \
+    '*rmw/rmw/*' \
+    '*tracetools/*' \
+    '*_msgs/*' \
+    '*/gtest*' \
+    'gtest/*' \
+    --output-file $BUILD_DIR/coverage_cleaned.info
 mv $BUILD_DIR/coverage_cleaned.info $BUILD_DIR/test_coverage.info
-
 
 # 4.) Finally generate the coverage report
 rm -rf $BUILD_DIR/ROS_PACKAGE_NAME/test_coverage/
 genhtml --output-directory \
-        $BUILD_DIR/test_coverage \
-        $BUILD_DIR/test_coverage.info 
+    $BUILD_DIR/test_coverage \
+    $BUILD_DIR/test_coverage.info
 echo "Code Coverage generated:"
 echo "     $BUILD_DIR/test_coverage.info"
 echo "     $BUILD_DIR/test_coverage/index.html"
 echo
 echo "To view the report, do:"
 echo "   open $BUILD_DIR/test_coverage/index.html"
-
-

@@ -1,12 +1,12 @@
 #!/usr/bin/env python
-import pickle
 import itertools
-import numpy as np
+import pickle
+
 import matplotlib.pyplot as plt
-from sklearn import svm
+import numpy as np
+from sklearn import cross_validation, metrics, svm
 from sklearn.preprocessing import LabelEncoder, StandardScaler
-from sklearn import cross_validation
-from sklearn import metrics
+
 
 def plot_confusion_matrix(cm, classes,
                           normalize=False,
@@ -73,7 +73,7 @@ kf = cross_validation.KFold(len(X_train),
 # Perform cross-validation
 scores = cross_validation.cross_val_score(cv=kf,
                                          estimator=clf,
-                                         X=X_train, 
+                                         X=X_train,
                                          y=y_train,
                                          scoring='accuracy'
                                         )
@@ -83,7 +83,7 @@ print('Accuracy: %0.2f (+/- %0.2f)' % (scores.mean(), 2*scores.std()))
 # Gather predictions
 predictions = cross_validation.cross_val_predict(cv=kf,
                                           estimator=clf,
-                                          X=X_train, 
+                                          X=X_train,
                                           y=y_train
                                          )
 

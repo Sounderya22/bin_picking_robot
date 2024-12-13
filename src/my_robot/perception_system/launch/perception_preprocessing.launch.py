@@ -1,14 +1,13 @@
 import os
-from launch import LaunchDescription
-from launch_ros.actions import Node
-from launch.actions import ExecuteProcess
+
 from ament_index_python.packages import get_package_share_directory
+from launch import LaunchDescription
+from launch.actions import ExecuteProcess, TimerAction
+from launch_ros.actions import Node
 from moveit_configs_utils import MoveItConfigsBuilder
-from launch.actions import TimerAction
 
 
 def generate_launch_description():
-
     # Node 1: pointcloud_transformation_node
     pointcloud_transformation_node = Node(
         name="pointcloud_transformation_node",
@@ -30,8 +29,4 @@ def generate_launch_description():
         ],
     )
 
-    return LaunchDescription(
-        [pointcloud_transformation_node , 
-         vision_pcl_processing_cpp_node
-         ]
-    )
+    return LaunchDescription([pointcloud_transformation_node, vision_pcl_processing_cpp_node])

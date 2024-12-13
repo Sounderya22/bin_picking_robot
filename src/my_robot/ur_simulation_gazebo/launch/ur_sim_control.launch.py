@@ -44,7 +44,6 @@ from launch_ros.substitutions import FindPackageShare
 
 
 def launch_setup(context, *args, **kwargs):
-
     # Initialize Arguments
     ur_type = LaunchConfiguration("ur_type")
     safety_limits = LaunchConfiguration("safety_limits")
@@ -61,18 +60,15 @@ def launch_setup(context, *args, **kwargs):
     launch_rviz = LaunchConfiguration("launch_rviz")
     gazebo_gui = LaunchConfiguration("gazebo_gui")
     world_name = LaunchConfiguration("world")
-      # Set the default pose
-    x = LaunchConfiguration('x')
-    y = LaunchConfiguration('y')
-    z = LaunchConfiguration('z')
-    roll = LaunchConfiguration('roll')
-    pitch = LaunchConfiguration('pitch')
-    yaw = LaunchConfiguration('yaw')
-  
+    # Set the default pose
+    x = LaunchConfiguration("x")
+    y = LaunchConfiguration("y")
+    z = LaunchConfiguration("z")
+    roll = LaunchConfiguration("roll")
+    pitch = LaunchConfiguration("pitch")
+    yaw = LaunchConfiguration("yaw")
 
-    world = PathJoinSubstitution(
-        [FindPackageShare(runtime_config_package), "worlds", world_name]
-    )
+    world = PathJoinSubstitution([FindPackageShare(runtime_config_package), "worlds", world_name])
 
     initial_joint_controllers = PathJoinSubstitution(
         [FindPackageShare(runtime_config_package), "config", controllers_file]
@@ -86,9 +82,7 @@ def launch_setup(context, *args, **kwargs):
         [
             PathJoinSubstitution([FindExecutable(name="xacro")]),
             " ",
-            PathJoinSubstitution(
-                [FindPackageShare(description_package), "urdf", description_file]
-            ),
+            PathJoinSubstitution([FindPackageShare(description_package), "urdf", description_file]),
             " ",
             "safety_limits:=",
             safety_limits,
@@ -116,10 +110,10 @@ def launch_setup(context, *args, **kwargs):
     )
     robot_description = {"robot_description": robot_description_content}
     # Specify the filename
-    filename = 'robot_description.txt'
+    filename = "robot_description.txt"
 
     # Write the robot description to the file
-    with open(filename, 'w') as file:
+    with open(filename, "w") as file:
         file.write(str(robot_description_content.perform(context)))
 
     print(f"Robot description written to {filename}")
@@ -174,7 +168,8 @@ def launch_setup(context, *args, **kwargs):
             [FindPackageShare("gazebo_ros"), "/launch", "/gazebo.launch.py"]
         ),
         launch_arguments={
-            "gui": gazebo_gui, 'world': world,
+            "gui": gazebo_gui,
+            "world": world,
         }.items(),
     )
 
@@ -184,14 +179,23 @@ def launch_setup(context, *args, **kwargs):
         executable="spawn_entity.py",
         name="spawn_ur",
         arguments=[
-        "-entity", "ur", 
-        "-topic", "robot_description",
-        '-x', x,
-        '-y', y,
-        '-z', z,
-        '-R', roll,
-        '-P', pitch,
-        '-Y', yaw],
+            "-entity",
+            "ur",
+            "-topic",
+            "robot_description",
+            "-x",
+            x,
+            "-y",
+            y,
+            "-z",
+            z,
+            "-R",
+            roll,
+            "-P",
+            pitch,
+            "-Y",
+            yaw,
+        ],
         output="screen",
     )
 
@@ -209,7 +213,6 @@ def launch_setup(context, *args, **kwargs):
 
 
 def generate_launch_description():
-
     declared_arguments = []
     # UR specific arguments
     declared_arguments.append(
@@ -305,41 +308,51 @@ def generate_launch_description():
         )
     )
     declared_arguments.append(
-    DeclareLaunchArgument(
-    name='world',
-    default_value='test1.world',
-    description='Name of the world model file to load'))
+        DeclareLaunchArgument(
+            name="world",
+            default_value="test1.world",
+            description="Name of the world model file to load",
+        )
+    )
 
+    declared_arguments.append(
+        DeclareLaunchArgument(
+            name="x", default_value="0.0", description="x component of initial position, meters"
+        )
+    )
 
-    declared_arguments.append(DeclareLaunchArgument(
-    name='x',
-    default_value='0.0',
-    description='x component of initial position, meters'))
+    declared_arguments.append(
+        DeclareLaunchArgument(
+            name="y", default_value="0.0", description="y component of initial position, meters"
+        )
+    )
 
-    declared_arguments.append(DeclareLaunchArgument(
-    name='y',
-    default_value='0.0',
-    description='y component of initial position, meters'))
-    
-    declared_arguments.append(DeclareLaunchArgument(
-    name='z',
-    default_value='0.50',
-    description='z component of initial position, meters'))
-    
-    declared_arguments.append(DeclareLaunchArgument(
-        name='roll',
-        default_value='0.0',
-        description='roll angle of initial orientation, radians'))
+    declared_arguments.append(
+        DeclareLaunchArgument(
+            name="z", default_value="0.50", description="z component of initial position, meters"
+        )
+    )
 
-    declared_arguments.append(DeclareLaunchArgument(
-        name='pitch',
-        default_value='0.0',
-        description='pitch angle of initial orientation, radians'))
+    declared_arguments.append(
+        DeclareLaunchArgument(
+            name="roll",
+            default_value="0.0",
+            description="roll angle of initial orientation, radians",
+        )
+    )
 
-    declared_arguments.append(DeclareLaunchArgument(
-        name='yaw',
-        default_value='0.0',
-        description='yaw angle of initial orientation, radians'))
-    
+    declared_arguments.append(
+        DeclareLaunchArgument(
+            name="pitch",
+            default_value="0.0",
+            description="pitch angle of initial orientation, radians",
+        )
+    )
+
+    declared_arguments.append(
+        DeclareLaunchArgument(
+            name="yaw", default_value="0.0", description="yaw angle of initial orientation, radians"
+        )
+    )
 
     return LaunchDescription(declared_arguments + [OpaqueFunction(function=launch_setup)])

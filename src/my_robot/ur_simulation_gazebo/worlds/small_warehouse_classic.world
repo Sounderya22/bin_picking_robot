@@ -2,7 +2,7 @@
 <sdf version="1.6">
   <world name="default">
           <!-- To add realistic gravity, do: 0.0 0.0 -9.8, otherwise do 0.0 0.0 0.0 -->
-        <gravity>0.0 0.0 -9.8</gravity>  
+        <gravity>0.0 0.0 -9.8</gravity>
             <gui fullscreen='0'>
       <camera name='user_camera'>
         <pose>-3.90827 -4.65526 4.77216 0 0.623643 0.728194</pose>
@@ -10,12 +10,12 @@
         <projection_type>perspective</projection_type>
       </camera>
     </gui>
- 
+
         <scene>
             <grid>false</grid>
-        </scene>   
+        </scene>
 
-    
+
     <model name="aws_robomaker_warehouse_RoofB_01_001">
         <include>
             <uri>model://aws_robomaker_warehouse_RoofB_01</uri>
@@ -50,7 +50,7 @@
         </include>
         <pose frame="">4.73156 -4.827049 0 0 0 0</pose>
 	</model>
-        
+
         <model name="aws_robomaker_warehouse_ShelfE_01_003">
         <include>
             <uri>model://aws_robomaker_warehouse_ShelfE_01</uri>
@@ -84,15 +84,15 @@
             <uri>model://aws_robomaker_warehouse_GroundB_01</uri>
         </include>
         <pose frame="">0.0 0.0 -0.090092 0 0 0</pose>
-	</model> 
-       
+	</model>
+
         <model name="aws_robomaker_warehouse_Lamp_01_005">
         <include>
             <uri>model://aws_robomaker_warehouse_Lamp_01</uri>
         </include>
         <pose frame="">0 0 -4 0 0 0</pose>
 	</model>
-       
+
         <model name="aws_robomaker_warehouse_Bucket_01_020">
         <include>
             <uri>model://aws_robomaker_warehouse_Bucket_01</uri>
@@ -105,7 +105,7 @@
             <uri>model://aws_robomaker_warehouse_Bucket_01</uri>
         </include>
         <pose frame="">0.433449 8.59 0 0 0 -1.563161</pose>
-	</model> 
+	</model>
 
   <model name='aws_robomaker_warehouse_ClutteringA_01_016'>
         <include>
@@ -177,7 +177,7 @@
         </include>
         <pose frame=''>-1.634682 -7.811813 -0.319559 0 0 0</pose>
 	</model>
-                                                 
+
       <model name='aws_robomaker_warehouse_TrashCanC_01_002'>
         <include>
             <uri>model://aws_robomaker_warehouse_TrashCanC_01</uri>
@@ -193,7 +193,7 @@
         <pose frame=''>-0.276098 -9.481944 0.023266 0 0 0</pose>
 	</model>  -->
 
-    	
+
     <light name="Warehouse_CeilingLight_003" type="point">
       <pose frame="">0 0 9 0 0 0</pose>
       <diffuse>0.5 0.5 0.5 1</diffuse>
@@ -207,7 +207,7 @@
       <cast_shadows>1</cast_shadows>
       <direction>0.1 0.1 -1</direction>
     </light>
- 
+
 
   </world>
 </sdf>

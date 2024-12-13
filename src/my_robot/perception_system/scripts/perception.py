@@ -1,29 +1,25 @@
 #!/usr/bin/env python
 
 # Import modules
-import numpy as np
-import sklearn
-from sklearn.preprocessing import LabelEncoder
 import pickle
-from sensor_stick.srv import GetNormals
-from sensor_stick.features import compute_color_histograms
-from sensor_stick.features import compute_normal_histograms
-from visualization_msgs.msg import Marker
-from sensor_stick.marker_tools import *
-from sensor_stick.msg import DetectedObjectsArray
-from sensor_stick.msg import DetectedObject
-from sensor_stick.pcl_helper import *
 
+import numpy as np
 import rospy
+import sklearn
 import tf
+import yaml
 from geometry_msgs.msg import Pose
-from std_msgs.msg import Float64
-from std_msgs.msg import Int32
-from std_msgs.msg import String
 from pr2_robot.srv import *
 from rospy_message_converter import message_converter
-import yaml
-
+from sensor_stick.features import (compute_color_histograms,
+                                   compute_normal_histograms)
+from sensor_stick.marker_tools import *
+from sensor_stick.msg import DetectedObject, DetectedObjectsArray
+from sensor_stick.pcl_helper import *
+from sensor_stick.srv import GetNormals
+from sklearn.preprocessing import LabelEncoder
+from std_msgs.msg import Float64, Int32, String
+from visualization_msgs.msg import Marker
 
 # Helper function to get surface normals
 '''
@@ -96,7 +92,7 @@ def pcl_callback(pcl_msg):
         # Create a VoxelGrid filter object for our input point cloud
     vox = outliers_removed.make_voxel_grid_filter()
     LEAF_SIZE = 0.005
-        # Set the voxel (or leaf) size  
+        # Set the voxel (or leaf) size
     vox.set_leaf_size(LEAF_SIZE, LEAF_SIZE, LEAF_SIZE)
         # Call the filter function to obtain the resultant downsampled point cloud
     cloud_filtered = vox.filter()
@@ -116,7 +112,7 @@ def pcl_callback(pcl_msg):
     axis_min = 0.6
     axis_max = 1.1
     passthrough.set_filter_limits(axis_min, axis_max)
-        # Finally use the filter function to obtain the resultant point cloud. 
+        # Finally use the filter function to obtain the resultant point cloud.
     cloud_filtered = passthrough.filter()
 
     #----------------------------------------------------------------------------------
@@ -130,7 +126,7 @@ def pcl_callback(pcl_msg):
     axis_min = -0.456
     axis_max =  0.456
     passthrough.set_filter_limits(axis_min, axis_max)
-    # Use the filter function to obtain the resultant point cloud. 
+    # Use the filter function to obtain the resultant point cloud.
     cloud_filtered = passthrough.filter()
 
 
@@ -142,11 +138,11 @@ def pcl_callback(pcl_msg):
     # TODO: RANSAC Plane Segmentation
         # Create the segmentation object
     seg = cloud_filtered.make_segmenter()
-        # Set the model you wish to fit 
+        # Set the model you wish to fit
     seg.set_model_type(pcl.SACMODEL_PLANE)
     seg.set_method_type(pcl.SAC_RANSAC)
         # Max distance for a point to be considered fitting the model
-        # Experiment with different values for max_distance 
+        # Experiment with different values for max_distance
         # for segmenting the table
     max_distance = 0.006
     seg.set_distance_threshold(max_distance)
@@ -163,7 +159,7 @@ def pcl_callback(pcl_msg):
     tree = white_cloud.make_kdtree()
         # Create a cluster extraction object
     ec = white_cloud.make_EuclideanClusterExtraction()
-        # Set tolerances for distance threshold 
+        # Set tolerances for distance threshold
         # as well as minimum and maximum cluster size (in points)
         # NOTE: These are poor choices of clustering parameters
         # Your task is to experiment and find values that work for segmenting objects.
@@ -210,13 +206,13 @@ def pcl_callback(pcl_msg):
 
         # Convert the cluster from pcl to ROS using helper function
         ros_cluster = pcl_to_ros(pcl_cluster)
-        
+
         # Extract histogram features
         chists = compute_color_histograms(ros_cluster, using_hsv=False)
         normals = get_normals(ros_cluster)
         nhists = compute_normal_histograms(normals)
         feature = np.concatenate((chists, nhists))
-        
+
         # Make the prediction, retrieve the label for the result
         # and add it to detected_objects_labels list
         prediction = clf.predict(scaler.transform(feature.reshape(1,-1)))
@@ -251,12 +247,12 @@ def pcl_callback(pcl_msg):
             pass
     else:
         rospy.logwarn('No detected objects !!!')
-    
-    return 
+
+    return
 
 # function to load parameters and request PickPlace service
 def pr2_mover(object_list):
-    
+
     dict_list = []
 
     # Get/Read the detected object parameters
@@ -291,7 +287,7 @@ def pr2_mover(object_list):
                 center_x = np.asscalar(centroids[j][0])
                 center_y = np.asscalar(centroids[j][1])
                 center_z = np.asscalar(centroids[j][2])
-                
+
                 # store which environment is used
                 test_scene_num = Int32()
                 test_scene_num.data =
@@ -373,9 +369,9 @@ if __name__ == '__main__':
 
     # TODO: Create Subscribers
     pcl_sub = rospy.Subscriber("/pr2/world/points", pc2.PointCloud2, pcl_callback, queue_size=1)
-    
+
     # Publishers to visualise the output of static outlier filter, vox filter, pass_through
-    # RANSAC filter, segmentation 
+    # RANSAC filter, segmentation
 
     pcl_static_out_pub = rospy.Publisher("/pcl_static_out", PointCloud2, queue_size=1)
     pcl_vox_pub = rospy.Publisher("/pcl_vox", PointCloud2, queue_size=1)
@@ -397,7 +393,7 @@ if __name__ == '__main__':
     clf = model['classifier']
     encoder = LabelEncoder()
     encoder.classes_ = model['classes']
-    scaler = model['scaler'] 
+    scaler = model['scaler']
 
     # TODO: Spin while node is not shutdown
     while not rospy.is_shutdown():

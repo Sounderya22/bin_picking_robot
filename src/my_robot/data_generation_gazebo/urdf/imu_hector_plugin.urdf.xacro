@@ -9,9 +9,9 @@
     </joint>
     <link name="${prefix}_link">
       <inertial>
-        <origin xyz="0 0 0" rpy="0 0 0" />
-        <mass value="0.05" />
-        <xacro:solid_cuboid_inertia m="0.05" w="0.021" h="0.027" d="0.003" />
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="0.05"/>
+        <xacro:solid_cuboid_inertia m="0.05" w="0.021" h="0.027" d="0.003"/>
       </inertial>
       <visual>
         <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -40,7 +40,7 @@
           <angular_velocity>
             <x>
               <noise type="gaussian">
-	    					<type>gaussian</type>
+                <type>gaussian</type>
                 <mean>0</mean>
                 <stddev>0.2</stddev>
                 <bias_mean>0</bias_mean>
@@ -51,7 +51,7 @@
             </x>
             <y>
               <noise type="gaussian">
-	    					<type>gaussian</type>
+                <type>gaussian</type>
                 <mean>0</mean>
                 <stddev>0.2</stddev>
                 <bias_mean>0</bias_mean>
@@ -62,7 +62,7 @@
             </y>
             <z>
               <noise type="gaussian">
-	    					<type>gaussian</type>
+                <type>gaussian</type>
                 <mean>0</mean>
                 <stddev>0.2</stddev>
                 <bias_mean>0</bias_mean>
@@ -75,7 +75,7 @@
           <linear_acceleration>
             <x>
               <noise type="gaussian">
-	    					<type>gaussian</type>
+                <type>gaussian</type>
                 <mean>0</mean>
                 <stddev>0.2</stddev>
                 <bias_mean>0</bias_mean>
@@ -86,7 +86,7 @@
             </x>
             <y>
               <noise type="gaussian">
-	    					<type>gaussian</type>
+                <type>gaussian</type>
                 <mean>0</mean>
                 <stddev>0.2</stddev>
                 <bias_mean>0</bias_mean>
@@ -97,7 +97,7 @@
             </y>
             <z>
               <noise type="gaussian">
-	    					<type>gaussian</type>
+                <type>gaussian</type>
                 <mean>0</mean>
                 <stddev>0.2</stddev>
                 <bias_mean>0</bias_mean>

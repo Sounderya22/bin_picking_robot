@@ -12,9 +12,9 @@
 # import modules
 import rospy
 from geometry_msgs.msg import Pose
-from std_msgs.msg import Float64
-from std_msgs.msg import String
 from pr2_robot.srv import *
+from std_msgs.msg import Float64, String
+
 
 def get_grasp_handler(req):
     object_name = req.object_name.data

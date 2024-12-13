@@ -28,15 +28,21 @@
 #
 # Author: Denis Stogl
 
+import os
+
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, OpaqueFunction, AppendEnvironmentVariable
+from launch.actions import (
+    AppendEnvironmentVariable,
+    DeclareLaunchArgument,
+    IncludeLaunchDescription,
+    OpaqueFunction,
+)
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from launch_ros.substitutions import FindPackageShare
-import os
+
 
 def launch_setup(context, *args, **kwargs):
-
     # Initialize Arguments
     ur_type = LaunchConfiguration("ur_type")
     safety_limits = LaunchConfiguration("safety_limits")
@@ -48,8 +54,6 @@ def launch_setup(context, *args, **kwargs):
     moveit_config_package = LaunchConfiguration("moveit_config_package")
     moveit_config_file = LaunchConfiguration("moveit_config_file")
     prefix = LaunchConfiguration("prefix")
-
-
 
     ur_control_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -85,13 +89,11 @@ def launch_setup(context, *args, **kwargs):
         }.items(),
     )
 
-    gazebo_models_path = 'models'
-    package_name_gazebo = 'ur_simulation_gazebo'
+    gazebo_models_path = "models"
+    package_name_gazebo = "ur_simulation_gazebo"
     pkg_share_gazebo = FindPackageShare(package=package_name_gazebo).find(package_name_gazebo)
     gazebo_models_path = os.path.join(pkg_share_gazebo, gazebo_models_path)
-    set_env_vars_resources = AppendEnvironmentVariable(
-        'GAZEBO_MODEL_PATH',
-        gazebo_models_path)
+    set_env_vars_resources = AppendEnvironmentVariable("GAZEBO_MODEL_PATH", gazebo_models_path)
 
     nodes_to_launch = [
         set_env_vars_resources,

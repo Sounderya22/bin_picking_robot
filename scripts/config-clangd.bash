@@ -14,7 +14,7 @@ echo "creating ~/.config/clangd/config.yaml"
 
 mkdir -p ~/.config/clangd
 
-cat << "EOF" > ~/.config/clangd/config.yaml
+cat <<"EOF" >~/.config/clangd/config.yaml
 Diagnostics:
   UnusedIncludes: Strict
 

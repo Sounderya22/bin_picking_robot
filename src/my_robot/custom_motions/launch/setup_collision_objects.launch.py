@@ -1,13 +1,14 @@
 import os
-from launch import LaunchDescription
-from launch_ros.actions import Node
-from launch.actions import ExecuteProcess
+
 from ament_index_python.packages import get_package_share_directory
+from launch import LaunchDescription
+from launch.actions import ExecuteProcess
+from launch_ros.actions import Node
 from moveit_configs_utils import MoveItConfigsBuilder
 
 
 def generate_launch_description():
-    #moveit_config = MoveItConfigsBuilder("name", package_name="my_moveit2_config").to_moveit_configs()
+    # moveit_config = MoveItConfigsBuilder("name", package_name="my_moveit2_config").to_moveit_configs()
     # moveit_config = MoveItConfigsBuilder("custom").to_moveit_configs()
 
     # MoveItCpp demo executable
@@ -24,6 +25,4 @@ def generate_launch_description():
         # ],
     )
 
-    return LaunchDescription(
-        [moveit_cpp_node]
-    )
+    return LaunchDescription([moveit_cpp_node])

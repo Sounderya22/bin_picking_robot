@@ -17,7 +17,7 @@
       <inertial>
         <origin xyz="0.0  0.0 -0.015" rpy="0 ${M_PI/2} 0"/>
         <mass value="0.8"/>
-        <xacro:solid_cuboid_inertia m="0.8" w="0.152" h="0.132" d="0.132" />
+        <xacro:solid_cuboid_inertia m="0.8" w="0.152" h="0.132" d="0.132"/>
       </inertial>
       <visual>
         <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
@@ -50,7 +50,7 @@
       <inertial>
         <mass value="0.1"/>
         <origin xyz="0 0 0" rpy="0 0 0"/>
-        <xacro:solid_cuboid_inertia m="0.1" w="0.1" h="0.11" d="0.11" />
+        <xacro:solid_cuboid_inertia m="0.1" w="0.1" h="0.11" d="0.11"/>
       </inertial>
     </link>
     <transmission name="${prefix}_pan_trans">
@@ -75,7 +75,7 @@
       <inertial>
         <mass value="0.1"/>
         <origin xyz="0 0 0" rpy="0 0 0"/>
-        <xacro:solid_cuboid_inertia m="0.1" w="0.11" h="0.11" d="0.1" />
+        <xacro:solid_cuboid_inertia m="0.1" w="0.11" h="0.11" d="0.1"/>
       </inertial>
     </link>
     <transmission name="${prefix}_tilt_trans">
@@ -97,7 +97,7 @@
       <inertial>
         <mass value="0.1"/>
         <origin xyz="0 0 0"/>
-        <xacro:solid_cuboid_inertia m="0.1" w="0.11" h="0.11" d="0.1" />
+        <xacro:solid_cuboid_inertia m="0.1" w="0.11" h="0.11" d="0.1"/>
       </inertial>
     </link>
     <!-- Optical frame -->
@@ -110,7 +110,7 @@
       <inertial>
         <mass value="0.1"/>
         <origin xyz="0 0 0"/>
-        <xacro:solid_cuboid_inertia m="0.1" w="0.11" h="0.11" d="0.1" />
+        <xacro:solid_cuboid_inertia m="0.1" w="0.11" h="0.11" d="0.1"/>
       </inertial>
     </link>
     <gazebo reference="${prefix}_base_link">
@@ -119,9 +119,6 @@
     <!-- Axis sensor for simulation -->
     <xacro:sensor_axis_gazebo/>
   </xacro:macro>
-
-
-
 
   <xacro:macro name="sensor_axis_gazebo">
     <gazebo reference="${prefix}_frame_link">
@@ -156,5 +153,4 @@
       </sensor>
     </gazebo>
   </xacro:macro>
-
 </robot>

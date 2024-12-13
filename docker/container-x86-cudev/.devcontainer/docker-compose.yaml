@@ -27,12 +27,7 @@ services:
     stdin_open: false
     tty: true
     working_dir: /home/neo/workspace
-    command:
-      [
-        "/bin/bash",
-        "-c",
-        "trap 'exit 0' TERM; sleep infinity & wait"
-      ]
+    command: ["/bin/bash", "-c", "trap 'exit 0' TERM; sleep infinity & wait"]
     volumes:
       - ../../../:/home/neo/workspace
       - ../aliases.sh:/home/neo/.aliases.sh:rw
@@ -56,4 +51,4 @@ services:
           devices:
             - driver: nvidia
               count: all
-              capabilities: [ gpu ]
+              capabilities: [gpu]

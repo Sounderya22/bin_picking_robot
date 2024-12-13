@@ -5,7 +5,7 @@ offsets:
   elbow_offset: 0.0393 # measured from model
 
 inertia_parameters:
-  base_mass: 4.0  # This mass might be incorrect
+  base_mass: 4.0 # This mass might be incorrect
   shoulder_mass: 7.369
   upper_arm_mass: 13.051
   forearm_mass: 3.989
@@ -13,11 +13,11 @@ inertia_parameters:
   wrist_2_mass: 1.98
   wrist_3_mass: 0.615
 
-  shoulder_radius: x0.060   # FROM UR5 DON'T USE
-  upper_arm_radius: x0.054  # FROM UR5 DON'T USE
-  elbow_radius: x0.060      # FROM UR5 DON'T USE
-  forearm_radius: x0.040    # FROM UR5 DON'T USE
-  wrist_radius: x0.045      # FROM UR5 DON'T USE
+  shoulder_radius: x0.060 # FROM UR5 DON'T USE
+  upper_arm_radius: x0.054 # FROM UR5 DON'T USE
+  elbow_radius: x0.060 # FROM UR5 DON'T USE
+  forearm_radius: x0.040 # FROM UR5 DON'T USE
+  wrist_radius: x0.045 # FROM UR5 DON'T USE
 
   links:
     base:
@@ -27,29 +27,29 @@ inertia_parameters:
   # model referring to https://www.universal-robots.com/articles/ur/application-installation/dh-parameters-for-calculations-of-kinematics-and-dynamics/
   center_of_mass:
     shoulder_cog:
-      x: 0.021      # model.x
-      y: -0.027     # -model.z
-      z: 0.0        # model.y
+      x: 0.021 # model.x
+      y: -0.027 # -model.z
+      z: 0.0 # model.y
     upper_arm_cog:
-      x: -0.2327    # model.x - upper_arm_length
-      y: 0.0        # model.y
-      z: 0.158      # model.z
+      x: -0.2327 # model.x - upper_arm_length
+      y: 0.0 # model.y
+      z: 0.158 # model.z
     forearm_cog:
-      x: -0.33155   # model.x - forearm_length
-      y: 0.0        # model.y
-      z: 0.068      # model.z
+      x: -0.33155 # model.x - forearm_length
+      y: 0.0 # model.y
+      z: 0.068 # model.z
     wrist_1_cog:
-      x: 0.0        # model.x
-      y: -0.018     # -model.z
-      z: 0.007      # model.y
+      x: 0.0 # model.x
+      y: -0.018 # -model.z
+      z: 0.007 # model.y
     wrist_2_cog:
-      x: 0.0        # model.x
-      y: 0.018      # model.z
-      z: -0.007     # -model.y
+      x: 0.0 # model.x
+      y: 0.018 # model.z
+      z: -0.007 # -model.y
     wrist_3_cog:
-      x: 0.0        # model.x
-      y: 0.0        # model.y
-      z: -0.026     # model.z
+      x: 0.0 # model.x
+      y: 0.0 # model.y
+      z: -0.026 # model.z
 
   rotation:
     shoulder:

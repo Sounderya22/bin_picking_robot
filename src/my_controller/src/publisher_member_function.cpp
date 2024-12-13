@@ -24,17 +24,13 @@ using namespace std::chrono_literals;
 /* This example creates a subclass of Node and uses std::bind() to register a
  * member function as a callback from the timer. */
 
-using STRING    = std_msgs::msg::String;
+using STRING = std_msgs::msg::String;
 using PUBLISHER = rclcpp::Publisher<STRING>::SharedPtr;
-using TIMER     = rclcpp::TimerBase::SharedPtr;
+using TIMER = rclcpp::TimerBase::SharedPtr;
 
 class MinimalPublisher : public rclcpp::Node {
 public:
-
-  MinimalPublisher()
-    : Node("minimal_publisher"),
-    count_(0)
-  {
+  MinimalPublisher() : Node("minimal_publisher"), count_(0) {
     // define topic name
     auto topicName = "topic";
 
@@ -42,34 +38,30 @@ public:
     publisher_ = this->create_publisher<STRING>(topicName, 10);
 
     // creates 2 hz timer and ties the callback function
-    timer_ =
-      this->create_wall_timer(
-        500ms,
-        std::bind(&MinimalPublisher::timer_callback, this));
+    timer_ = this->create_wall_timer(
+        500ms, std::bind(&MinimalPublisher::timer_callback, this));
   }
 
 private:
-
-  size_t    count_;
+  size_t count_;
   PUBLISHER publisher_;
-  TIMER     timer_;
+  TIMER timer_;
 
-  void timer_callback()
-  {
+  void timer_callback() {
     // Create the message to publish
     auto message = STRING();
 
     message.data = "Hello, world! " + std::to_string(count_++);
-    RCLCPP_INFO_STREAM (this->get_logger(),
-                        "Publishing: " << function2 (count_) << " " << message.data.c_str());
+    RCLCPP_INFO_STREAM(this->get_logger(),
+                       "Publishing: " << function2(count_) << " "
+                                      << message.data.c_str());
 
     // Publish the message
     publisher_->publish(message);
   }
 };
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
   // 1.) Initialize ROS 2 C++ client library
   rclcpp::init(argc, argv);
 

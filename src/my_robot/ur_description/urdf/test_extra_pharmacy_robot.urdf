@@ -1,21 +1,21 @@
 <?xml version="1.0" ?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro" name="pharmacy_robot">
-	<!-- 
-		xml: 	
+	<!--
+		xml:
 			Declare this file as an XML document and specifies the XML version.
-		robot: 	
-			The root element 'robot' defines a robot model. Everything about the 
+		robot:
+			The root element 'robot' defines a robot model. Everything about the
 			robot configuration will be nested inside this element.
-		xmlns:xacro:	
-			Declares the XML namespace for xacro, which is a XML macro language used 
+		xmlns:xacro:
+			Declares the XML namespace for xacro, which is a XML macro language used
 			in ROS (Robot Operating System) for parameterizing XML documents.
-		name: 
+		name:
 			Specify the name of the robot.
 	-->
-	
+
 	<!-- Reference Files: https://github.com/elephantrobotics/mycobot_ros/ -->
-	
-	<!-- Provide a global reference frame for the robotic arm in simulation (Gazebo) 
+
+	<!-- Provide a global reference frame for the robotic arm in simulation (Gazebo)
 		or visualization (RViz) environments
 	-->
 
@@ -24,7 +24,7 @@
 	<!-- Numbers are estimated when necessary -->
 	<xacro:property name="effort" value="5.0"/>
 	<xacro:property name="velocity" value="2.792527"/>
-	
+
 	<!-- ********** LINKS ********** -->
 
     <link name="base_link">
@@ -66,7 +66,7 @@
 		</geometry>
 		</collision>
   	</link>
-	
+
 	<link name="robot_base_link">
 		<inertial>
 		<origin
@@ -106,7 +106,7 @@
 		</geometry>
 		</collision>
 	</link>
-	
+
 	<link name="vertical_rail_link">
 		<inertial>
 		<origin
@@ -507,7 +507,7 @@
     </link>
 
 	<!-- ********** JOINTS ********** -->
-	
+
 	<joint name="robot_base" type="prismatic">
 		<origin xyz="-0.363268813043527 -0.924762250922737 0.710106916026756" rpy="0 0 0" />
 		<parent link="base_link" />
@@ -534,7 +534,7 @@
 		velocity="0.5" />
 		<dynamics damping="5" friction="3" />
   	</joint>
-	
+
 	<joint
 		name="prismatic_base"
 		type="prismatic">
@@ -574,7 +574,7 @@
 		velocity="0.1" />
 		<dynamics damping="5" friction="3" />
 	</joint>
-	
+
 	<joint
 		name="gripper_base_"
 		type="revolute">
@@ -594,7 +594,7 @@
 		velocity="0.5" />
 		<dynamics damping="5" friction="3" />
 	</joint>
-	
+
 	<joint
 		name="camera"
 		type="fixed">
@@ -608,7 +608,7 @@
 		<axis
 		xyz="0 0 0" />
 	</joint>
-	
+
     <joint name="robotiq_85_base_joint" type="fixed">
         <parent link="gripper_base_link" />
         <child link="robotiq_85_base_link" />
@@ -888,6 +888,6 @@
         <distortionT2>0.0</distortionT2>
       </plugin>
     </sensor>
-  </gazebo>  
-  
+  </gazebo>
+
 </robot>

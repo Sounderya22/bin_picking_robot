@@ -1,12 +1,10 @@
 <?xml version="1.0"?>
 <robot name="sensor_orbbec_astra_embedded_s" xmlns:xacro="http://wiki.ros.org/Sensors/OrbbecAstra">
-
   <xacro:macro name="sensor_orbbec_astra_embedded_s" params="prefix parent prefix_topic:='front_rgbd_camera' *origin">
-
     <joint name="${prefix}_joint" type="fixed">
-	  <xacro:insert_block name="origin" />
+      <xacro:insert_block name="origin"/>
       <parent link="${parent}"/>
-      <child link="${prefix}_link" />
+      <child link="${prefix}_link"/>
     </joint>
 
     <link name="${prefix}_link">
@@ -27,9 +25,9 @@
         </geometry>
       </collision>
       <inertial>
-        <mass value="0.001" />
-        <origin xyz="0.0 0.0 0.0" />
-        <xacro:solid_cuboid_inertia m="0.001" w="0.04" h="0.165" d="0.03" />
+        <mass value="0.001"/>
+        <origin xyz="0.0 0.0 0.0"/>
+        <xacro:solid_cuboid_inertia m="0.001" w="0.04" h="0.165" d="0.03"/>
       </inertial>
     </link>
 
@@ -39,43 +37,37 @@
       <child link="${prefix}_rgb_frame"/>
     </joint>
 
-    <link name="${prefix}_rgb_frame">
-    </link>
+    <link name="${prefix}_rgb_frame"/>
 
     <joint name="${prefix}_rgb_optical_joint" type="fixed">
       <origin xyz="0.0 0.0 0.0" rpy="${-M_PI/2} 0 ${-M_PI/2}"/>
-      <parent link="${prefix}_rgb_frame" />
-      <child link="${prefix}_rgb_optical_frame" />
+      <parent link="${prefix}_rgb_frame"/>
+      <child link="${prefix}_rgb_optical_frame"/>
     </joint>
 
-    <link name="${prefix}_rgb_optical_frame">
-    </link>
+    <link name="${prefix}_rgb_optical_frame"/>
 
     <joint name="${prefix}_depth_joint" type="fixed">
-      <origin xyz="0 0.02 0" rpy="0 0 0" />
-      <parent link="${prefix}_link" />
-      <child link="${prefix}_depth_frame" />
+      <origin xyz="0 0.02 0" rpy="0 0 0"/>
+      <parent link="${prefix}_link"/>
+      <child link="${prefix}_depth_frame"/>
     </joint>
 
-    <link name="${prefix}_depth_frame">
-    </link>
+    <link name="${prefix}_depth_frame"/>
 
     <joint name="${prefix}_depth_optical_joint" type="fixed">
-      <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
-      <parent link="${prefix}_depth_frame" />
-      <child link="${prefix}_depth_optical_frame" />
+      <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}"/>
+      <parent link="${prefix}_depth_frame"/>
+      <child link="${prefix}_depth_optical_frame"/>
     </joint>
 
-    <link name="${prefix}_depth_optical_frame">
-    </link>
+    <link name="${prefix}_depth_optical_frame"/>
 
-  <!-- RGBD sensor for simulation, same as Kinect -->
-  <xacro:sensor_astra_embedded_s_gazebo/>
-
+    <!-- RGBD sensor for simulation, same as Kinect -->
+    <xacro:sensor_astra_embedded_s_gazebo/>
   </xacro:macro>
 
-   <xacro:macro name="sensor_astra_embedded_s_gazebo">
-
+  <xacro:macro name="sensor_astra_embedded_s_gazebo">
     <gazebo reference="${prefix}_link">
       <sensor type="depth" name="${prefix}_depth_sensor">
         <always_on>true</always_on>
@@ -93,7 +85,7 @@
           </clip>
         </camera>
         <plugin name="${prefix}_controller" filename="libgazebo_ros_openni_kinect.so">
-	        <cameraName>${prefix_topic}</cameraName>
+          <cameraName>${prefix_topic}</cameraName>
           <alwaysOn>true</alwaysOn>
           <updateRate>10</updateRate>
           <imageTopicName>rgb/image_raw</imageTopicName>

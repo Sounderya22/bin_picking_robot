@@ -7,7 +7,6 @@
   -->
 
   <xacro:macro name="ur_arm_transmission" params="prefix hw_interface">
-
     <transmission name="${prefix}shoulder_pan_trans">
       <type>transmission_interface/SimpleTransmission</type>
       <joint name="${prefix}shoulder_pan_joint">
@@ -67,7 +66,5 @@
         <mechanicalReduction>1</mechanicalReduction>
       </actuator>
     </transmission>
-
   </xacro:macro>
-
 </robot>

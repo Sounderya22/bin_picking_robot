@@ -12,25 +12,25 @@
 
 # Routine to convert an angle in degrees [-180° +180°] to radians [-PI +PI]
 function degrad {
-  if [[ $# -ne 1 ]] || [[ $1 -lt -180 ]] || [[ $1 -gt 180 ]]; then
-    echo >&2 "Usage:"
-    echo >&2 "    degrad ANGLE"
-    echo >&2 "ANGLE must be in degrees and in [-180° +180°]"
-    return 1
-  fi
-  local OP
-  local FIRST
-  local SECOND
-  local RES
-  OP="scale=6;$1*3.14159265359/180.0"
-  RES="$(bc <<<"$OP")"
-  FIRST="${RES:0:1}"
-  SECOND="${RES:1:1}"
-  if [[ $FIRST == "." ]]; then
-    RES="0${RES}"
-  fi
-  if [[ $FIRST == "-" ]] && [[ $SECOND == "." ]]; then
-    RES="-0.${RES:2:6}"
-  fi
-  echo "$RES"
+    if [[ $# -ne 1 ]] || [[ $1 -lt -180 ]] || [[ $1 -gt 180 ]]; then
+        echo >&2 "Usage:"
+        echo >&2 "    degrad ANGLE"
+        echo >&2 "ANGLE must be in degrees and in [-180° +180°]"
+        return 1
+    fi
+    local OP
+    local FIRST
+    local SECOND
+    local RES
+    OP="scale=6;$1*3.14159265359/180.0"
+    RES="$(bc <<<"$OP")"
+    FIRST="${RES:0:1}"
+    SECOND="${RES:1:1}"
+    if [[ $FIRST == "." ]]; then
+        RES="0${RES}"
+    fi
+    if [[ $FIRST == "-" ]] && [[ $SECOND == "." ]]; then
+        RES="-0.${RES:2:6}"
+    fi
+    echo "$RES"
 }

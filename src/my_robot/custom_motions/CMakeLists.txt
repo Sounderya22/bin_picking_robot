@@ -107,7 +107,7 @@ ament_target_dependencies(visualise_pose
 
 
 # Install the executable
-install(TARGETS 
+install(TARGETS
 	approach_retreat
 	cartesian_path
     setup_collision_objects
@@ -117,7 +117,7 @@ install(TARGETS
 )
 
 # Install the launch file
-install(DIRECTORY 
+install(DIRECTORY
 	launch
     DESTINATION share/${PROJECT_NAME}
 )

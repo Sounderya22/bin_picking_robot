@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <sdf version="1.4">
-  
+
   <world name="default">
     <gui fullscreen='0'>
       <camera name='user_camera'>
@@ -33,7 +33,7 @@
     <include>
       <uri>model://ground_plane</uri>
       <pose>0 0 0 0 0 0</pose>
-    </include>  
+    </include>
 
     <!-- A global light source -->
     <include>
@@ -126,7 +126,7 @@
       <direction>0 0 -1</direction>
     </light>
 
-  
-    
+
+
   </world>
 </sdf>

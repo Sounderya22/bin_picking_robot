@@ -1,56 +1,50 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://wiki.ros.org/xacro" name="sensor">
-   <!-- robot name parameter -->
-   <!-- import main macro -->
-   <xacro:include filename="$(find data_generation_gazebo)/urdf/all_sensors.urdf.xacro" />
-   <xacro:arg name="sim_gazebo" default="true" />
-   <xacro:arg name="sim_ignition" default="false" />
-   <!-- convert to property to use substitution in function -->
-   <xacro:property name="is_sim_gazebo" value="$(arg sim_gazebo)"/>
-   <xacro:property name="is_sim_ignition" value="$(arg sim_ignition)"/>
+  <!-- robot name parameter -->
+  <!-- import main macro -->
+  <xacro:include filename="$(find data_generation_gazebo)/urdf/all_sensors.urdf.xacro"/>
+  <xacro:arg name="sim_gazebo" default="true"/>
+  <xacro:arg name="sim_ignition" default="false"/>
+  <!-- convert to property to use substitution in function -->
+  <xacro:property name="is_sim_gazebo" value="$(arg sim_gazebo)"/>
+  <xacro:property name="is_sim_ignition" value="$(arg sim_ignition)"/>
 
-   <!-- create link fixed to the "world" -->
-   <link name="world" >
+  <!-- create link fixed to the "world" -->
+  <link name="world"/>
+
+  <xacro:if value="${is_sim_gazebo or is_sim_ignition}">
+    <link name="ground_plane">
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <geometry>
+          <box size="5 5 0"/>
+        </geometry>
+        <material name="ground_white">
+          <color rgba="1 1 1 0.5"/>
+        </material>
+      </visual>
+      <collision>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <geometry>
+          <box size="5 5 0"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0 0 1" rpy="0 0 0"/>
+        <mass value="1"/>
+        <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+      </inertial>
     </link>
 
-   <xacro:if value="${is_sim_gazebo or is_sim_ignition}">
-     <link name="ground_plane">
-       <visual>
-         <origin rpy="0 0 0" xyz="0 0 0"/>
-         <geometry>
-           <box size="5 5 0"/>
-         </geometry>
-         <material name="ground_white">
-           <color rgba="1 1 1 0.5"/>
-         </material>
-       </visual>
-       <collision>
-         <origin rpy="0 0 0" xyz="0 0 0"/>
-         <geometry>
-           <box size="5 5 0"/>
-         </geometry>
-       </collision>
-          <inertial>
-      <origin xyz="0 0 1" rpy="0 0 0"/>
-      <mass value="1"/>
-      <inertia
-        ixx="1.0" ixy="0.0" ixz="0.0"
-        iyy="1.0" iyz="0.0"
-        izz="1.0"/>
-    </inertial>
-     </link>
-
-     <joint name="ground_plane_joint" type="fixed">
-       <origin xyz="0 0 -0.01" rpy="0 0 0"/>
-       <parent link="world"/>
-       <child link="ground_plane"/>
-     </joint>
-   </xacro:if>
-<!-- Vision sensor for color and depth stream of the environment -->
-  <xacro:sensor_r430 prefix="top_rgbd" parent="ground_plane" >
-       <!--<origin xyz="0.35 0.45 0.1" rpy="0 ${pi/6} ${-pi/2}"/>-->
-       <origin xyz="0.0 0.0 0.5" rpy="0 ${pi/2} ${0}"/>
-   </xacro:sensor_r430>
-
-
+    <joint name="ground_plane_joint" type="fixed">
+      <origin xyz="0 0 -0.01" rpy="0 0 0"/>
+      <parent link="world"/>
+      <child link="ground_plane"/>
+    </joint>
+  </xacro:if>
+  <!-- Vision sensor for color and depth stream of the environment -->
+  <xacro:sensor_r430 prefix="top_rgbd" parent="ground_plane">
+    <!--<origin xyz="0.35 0.45 0.1" rpy="0 ${pi/6} ${-pi/2}"/>-->
+    <origin xyz="0.0 0.0 0.5" rpy="0 ${pi/2} ${0}"/>
+  </xacro:sensor_r430>
 </robot>

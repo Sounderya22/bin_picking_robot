@@ -35,7 +35,7 @@ repos:
   - repo: https://github.com/asottile/pyupgrade
     rev: v2.29.1
     hooks:
-    -   id: pyupgrade
+      - id: pyupgrade
         args: [--py36-plus]
 
   - repo: https://github.com/psf/black
@@ -47,8 +47,8 @@ repos:
   - repo: https://github.com/pycqa/flake8
     rev: 4.0.1
     hooks:
-    - id: flake8
-      args: ["--ignore=E501"]
+      - id: flake8
+        args: ["--ignore=E501"]
 
   # CPP hooks
   - repo: local
@@ -59,13 +59,13 @@ repos:
         entry: clang-format-10
         language: system
         files: \.(c|cc|cxx|cpp|frag|glsl|h|hpp|hxx|ih|ispc|ipp|java|js|m|proto|vert)$
-        args: ['-fallback-style=none', '-i']
+        args: ["-fallback-style=none", "-i"]
   # The same options as in ament_cppcheck are used, but its not working...
   #- repo: https://github.com/pocc/pre-commit-hooks
-    #rev: v1.1.1
-    #hooks:
-      #- id: cppcheck
-        #args: ['--error-exitcode=1', '-f', '--inline-suppr', '-q', '-rp', '--suppress=internalAstError', '--suppress=unknownMacro', '--verbose']
+  #rev: v1.1.1
+  #hooks:
+  #- id: cppcheck
+  #args: ['--error-exitcode=1', '-f', '--inline-suppr', '-q', '-rp', '--suppress=internalAstError', '--suppress=unknownMacro', '--verbose']
 
   - repo: local
     hooks:
@@ -115,7 +115,7 @@ repos:
     rev: 0.10.1
     hooks:
       - id: doc8
-        args: ['--max-line-length=100', '--ignore=D001']
+        args: ["--max-line-length=100", "--ignore=D001"]
         exclude: CHANGELOG\.rst$
 
   - repo: https://github.com/pre-commit/pygrep-hooks
@@ -132,5 +132,5 @@ repos:
     rev: v2.1.0
     hooks:
       - id: codespell
-        args: ['--write-changes']
+        args: ["--write-changes"]
         exclude: CHANGELOG\.rst|\.(svg|pyc|drawio)$

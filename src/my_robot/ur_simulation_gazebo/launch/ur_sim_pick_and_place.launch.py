@@ -28,22 +28,32 @@
 #
 # Author: Denis Stogl
 
+import os
+
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, OpaqueFunction, AppendEnvironmentVariable
+from launch.actions import (
+    AppendEnvironmentVariable,
+    DeclareLaunchArgument,
+    IncludeLaunchDescription,
+    OpaqueFunction,
+    TimerAction,
+)
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from launch_ros.substitutions import FindPackageShare
-import os
-from launch.actions import TimerAction
+
 
 def launch_setup(context, *args, **kwargs):
-
     # Initialize Arguments
     # ur_type = LaunchConfiguration("ur_type")
 
     ur_control_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            [FindPackageShare("ur_simulation_gazebo"), "/launch", "/ur_sim_moveit_4_gripper.launch.py"]
+            [
+                FindPackageShare("ur_simulation_gazebo"),
+                "/launch",
+                "/ur_sim_moveit_4_gripper.launch.py",
+            ]
         ),
     )
 
@@ -55,7 +65,11 @@ def launch_setup(context, *args, **kwargs):
 
     perception_preprocessing_setup_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            [FindPackageShare("perception_system"), "/launch", "/perception_preprocessing.launch.py"]
+            [
+                FindPackageShare("perception_system"),
+                "/launch",
+                "/perception_preprocessing.launch.py",
+            ]
         ),
     )
 

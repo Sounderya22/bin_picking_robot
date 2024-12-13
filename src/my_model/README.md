@@ -4,12 +4,13 @@
 
 A **stand-alone** C++ library using:
 
-- CMake
-- GoogleTest
-- OpenCV
-- rclcpp
+-   CMake
+-   GoogleTest
+-   OpenCV
+-   rclcpp
 
 ## Standard install via command-line
+
 ```bash
 # Configure the project and generate a native build system:
   # Re-run this command whenever any CMakeLists.txt file has been changed.
@@ -35,7 +36,6 @@ A **stand-alone** C++ library using:
   rm -rf build/
 ```
 
- 
 ## Build unit test and code coverage
 
 ```bash

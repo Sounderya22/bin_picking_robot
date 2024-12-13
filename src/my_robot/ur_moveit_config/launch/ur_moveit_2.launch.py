@@ -8,7 +8,7 @@
 #
 #    * Redistributions in binary form must reproduce the above copyright
 #      notice, this list of conditions and the following disclaimer in the
-#      documentation and/or other materials provided with the distribution. 
+#      documentation and/or other materials provided with the distribution.
 #
 #    * Neither the name of the {copyright_holder} nor the names of its
 #      contributors may be used to endorse or promote products derived from
@@ -31,10 +31,6 @@
 
 import os
 
-from launch_ros.actions import Node
-from launch_ros.substitutions import FindPackageShare
-from ur_moveit_config.launch_common import load_yaml
-
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, OpaqueFunction
 from launch.conditions import IfCondition
@@ -42,13 +38,15 @@ from launch.substitutions import (
     Command,
     FindExecutable,
     LaunchConfiguration,
-    PathJoinSubstitution,
     OrSubstitution,
+    PathJoinSubstitution,
 )
+from launch_ros.actions import Node
+from launch_ros.substitutions import FindPackageShare
+from ur_moveit_config.launch_common import load_yaml
 
 
 def launch_setup(context, *args, **kwargs):
-
     # Initialize Arguments
     ur_type = LaunchConfiguration("ur_type")
     use_fake_hardware = LaunchConfiguration("use_fake_hardware")
@@ -149,7 +147,7 @@ def launch_setup(context, *args, **kwargs):
         ]
     )
     robot_description_semantic = {"robot_description_semantic": robot_description_semantic_content}
-    
+
     publish_robot_description_semantic = {
         "publish_robot_description_semantic": _publish_robot_description_semantic
     }
@@ -157,7 +155,6 @@ def launch_setup(context, *args, **kwargs):
     robot_description_kinematics = PathJoinSubstitution(
         [FindPackageShare(moveit_config_package), "config", "kinematics.yaml"]
     )
-
 
     robot_description_planning = {
         "robot_description_planning": load_yaml(
@@ -215,7 +212,6 @@ def launch_setup(context, *args, **kwargs):
     }
     print("Line 219, moveit launch")
 
-
     # Start the actual move_group node/action server
     move_group_node = Node(
         package="moveit_ros_move_group",
@@ -237,7 +233,6 @@ def launch_setup(context, *args, **kwargs):
     )
 
     print("Line 242, moveit launch")
-
 
     # rviz with moveit configuration
     rviz_config_file = PathJoinSubstitution(
@@ -265,7 +260,6 @@ def launch_setup(context, *args, **kwargs):
 
     print("Line 269, moveit launch")
 
-
     # Servo node for realtime control
     servo_yaml = load_yaml("ur_moveit_config", "config/ur_servo.yaml")
     servo_params = {"moveit_servo": servo_yaml}
@@ -289,7 +283,6 @@ def launch_setup(context, *args, **kwargs):
 
 
 def generate_launch_description():
-
     declared_arguments = []
     # UR specific arguments
     declared_arguments.append(

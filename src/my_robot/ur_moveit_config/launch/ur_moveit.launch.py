@@ -6,7 +6,7 @@
 #    * Redistributions of source code must retain the above copyright
 #      notice, this list of conditions and the following disclaimer.
 #
-#    * Redistributions in binary form must reproduce the above copyright 
+#    * Redistributions in binary form must reproduce the above copyright
 #      notice, this list of conditions and the following disclaimer in the
 #      documentation and/or other materials provided with the distribution.
 #
@@ -31,10 +31,6 @@
 
 import os
 
-from launch_ros.actions import Node
-from launch_ros.substitutions import FindPackageShare
-from ur_moveit_config.launch_common import load_yaml
-
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, OpaqueFunction
 from launch.conditions import IfCondition
@@ -42,13 +38,15 @@ from launch.substitutions import (
     Command,
     FindExecutable,
     LaunchConfiguration,
-    PathJoinSubstitution,
     OrSubstitution,
+    PathJoinSubstitution,
 )
+from launch_ros.actions import Node
+from launch_ros.substitutions import FindPackageShare
+from ur_moveit_config.launch_common import load_yaml
 
 
 def launch_setup(context, *args, **kwargs):
-
     # Initialize Arguments
     ur_type = LaunchConfiguration("ur_type")
     use_fake_hardware = LaunchConfiguration("use_fake_hardware")
@@ -277,7 +275,6 @@ def launch_setup(context, *args, **kwargs):
 
 
 def generate_launch_description():
-
     declared_arguments = []
     # UR specific arguments
     declared_arguments.append(

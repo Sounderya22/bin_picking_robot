@@ -7,7 +7,7 @@ moveit_simple_controller_manager:
     - joint_trajectory_controller
     - scaled_joint_trajectory_controller
     - gripper_controller
- 
+
   joint_trajectory_controller:
     type: FollowJointTrajectory
     action_ns: follow_joint_trajectory
@@ -19,7 +19,7 @@ moveit_simple_controller_manager:
       - wrist_1_joint
       - wrist_2_joint
       - wrist_3_joint
-  
+
   scaled_joint_trajectory_controller:
     action_ns: follow_joint_trajectory
     type: FollowJointTrajectory
@@ -38,8 +38,8 @@ moveit_simple_controller_manager:
     default: true
     parallel: true
     joints:
-      - robotiq_85_left_knuckle_joint 
-      - robotiq_85_right_knuckle_joint 
+      - robotiq_85_left_knuckle_joint
+      - robotiq_85_right_knuckle_joint
       - robotiq_85_left_inner_knuckle_joint
       - robotiq_85_right_inner_knuckle_joint
       - robotiq_85_left_finger_tip_joint

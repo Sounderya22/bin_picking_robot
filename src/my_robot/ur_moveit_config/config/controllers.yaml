@@ -1,7 +1,6 @@
 controller_names:
   - scaled_joint_trajectory_controller
   - joint_trajectory_controller
- 
 
 scaled_joint_trajectory_controller:
   action_ns: follow_joint_trajectory
@@ -14,7 +13,6 @@ scaled_joint_trajectory_controller:
     - wrist_1_joint
     - wrist_2_joint
     - wrist_3_joint
-
 
 joint_trajectory_controller:
   action_ns: follow_joint_trajectory

@@ -30,8 +30,6 @@
 
 <div id="top"></div>
 
-
-
 <br />
 <div align="center">
 
@@ -58,29 +56,30 @@ IFRA Group pushes technical boundaries. At IFRA we provide high tech automation 
 
 The IFRA Group undertakes innovative research to design, create and improve Intelligent, Responsive and Flexible automation & assembly solutions, and this series of GitHub repositories provide background information and resources of how these developments are supported.
 
-__SOCIAL MEDIA__:
+**SOCIAL MEDIA**:
 
 IFRA-Cranfield:
-- YouTube: https://www.youtube.com/@IFRACranfield
-- LinkedIn: https://www.linkedin.com/in/ifra-cranfield/
+
+-   YouTube: <https://www.youtube.com/@IFRACranfield>
+-   LinkedIn: <https://www.linkedin.com/in/ifra-cranfield/>
 
 Centre for Robotics and Assembly:
-- Instagram: https://www.instagram.com/cranfieldrobotics/
-- Facebook: https://www.facebook.com/cranfieldunirobotics/
-- YouTube: https://www.youtube.com/@CranfieldRobotics
-- LinkedIn: https://www.linkedin.com/company/cranfieldrobotics/
-- Website: https://www.cranfield.ac.uk/centres/centre-for-robotics-and-assembly 
 
+-   Instagram: <https://www.instagram.com/cranfieldrobotics/>
+-   Facebook: <https://www.facebook.com/cranfieldunirobotics/>
+-   YouTube: <https://www.youtube.com/@CranfieldRobotics>
+-   LinkedIn: <https://www.linkedin.com/company/cranfieldrobotics/>
+-   Website: <https://www.cranfield.ac.uk/centres/centre-for-robotics-and-assembly>
 
 ### IFRA_LinkAttacher Repository
 
-The IFRA_LinkAttacher repository contains 2 different ROS2 packages, which enable the attachment of 2 different entity links in Gazebo. This attachment is done through a simple ROS2/Gazebo plugin, and can be used for many applications in a Gazebo simulation environment. 
+The IFRA_LinkAttacher repository contains 2 different ROS2 packages, which enable the attachment of 2 different entity links in Gazebo. This attachment is done through a simple ROS2/Gazebo plugin, and can be used for many applications in a Gazebo simulation environment.
 
 The plugin has been designed with the main purpose of simulating object pick and place tasks using Robot Manipulators in Gazebo. The link attachment/detachment feature is available through a ROS2 Service Server, which creates a temporary fixed joint between two links for the "ATTACH" request, and removes the previously generated joint for the "DETACH" service. Thanks to this functionality, objects can be easily attached to any end-effector and pick/place tasks can be simulated in Gazebo-ROS2.
 
 DEVELOPMENT: For the design of the IFRA_LinkAttacher ROS2/Gazebo plugin, the design pattern of the working [gazebo_ros_state](https://github.com/ros-simulation/gazebo_ros_pkgs/blob/ros2/gazebo_ros/src/gazebo_ros_state.cpp) ROS2 plugin has been followed. The code has been modified/adapted for the main purpose of this new plugin (ATTACH/DETACH links), following the Gazebo API documentation for [gazebo::physics](http://osrf-distributions.s3.amazonaws.com/gazebo/api/11.0.0/group__gazebo__physics.html).
 
-__VIDEO: Pick and Place Task - ROS2 Gazebo Simulation (UR3 + Robotiq 2f-85)__
+**VIDEO: Pick and Place Task - ROS2 Gazebo Simulation (UR3 + Robotiq 2f-85)**
 
 [![Alt text](https://img.youtube.com/vi/t4L4VAfgqZw/0.jpg)](https://www.youtube.com/watch?v=t4L4VAfgqZw)
 
@@ -103,9 +102,7 @@ colcon build
 
 The IFRA_LinkAttacher ROS2-Gazebo plugin offers the link attachment/detachment feature though 2 different ROS2 Services, which can be called by executing the following commands:
 
-
 ros2 service call /attach_link linkattacher_msgs/srv/AttachLink "{model1_name: 'ur', link1_name: 'wrist_3_link', model2_name: 'biscuits', link2_name: 'biscuits_link'}"
-
 
 ros2 service call /detach_link linkattacher_msgs/srv/DetachLink "{model1_name: 'ur', link1_name: 'wrist_3_link', model2_name: 'biscuits', link2_name: 'biscuits_link'}"
 
@@ -117,21 +114,23 @@ ros2 service call /DETACHLINK linkattacher_msgs/srv/DetachLink "{model1_name: 'm
 ```
 
 Elements are defined as follows:
-* model1 -> Name of the model/robot (defined in the robot .urdf). 
-* link1 -> Name of the end-effector link that the object will be attached to.
-* model2 -> Name of the object to be attached (defined in the object .urdf). 
-* link2 -> Name of the object link.
 
-__MAIN REQUIREMENT to execute the plugin: Gazebo .world file__
+-   model1 -> Name of the model/robot (defined in the robot .urdf).
+-   link1 -> Name of the end-effector link that the object will be attached to.
+-   model2 -> Name of the object to be attached (defined in the object .urdf).
+-   link2 -> Name of the object link.
+
+**MAIN REQUIREMENT to execute the plugin: Gazebo .world file**
 
 In order for the /ATTACHLINK and /DETACHLINK ROS2 services to be available in simulation, the LinkAttacher Plugin must be initialised in Gazebo. This is done by adding the following line to the Gazebo world file:
+
 ```
 <plugin name="gazebo_link_attacher" filename="libgazebo_link_attacher.so"/>
 ```
 
 An example of how the plugin is initialised in a world file can be found in the ros2_SimRealRobotControl GitHub repository [here](https://github.com/IFRA-Cranfield/ros2_SimRealRobotControl/blob/humble/ur3/ros2srrc_ur3_gazebo/worlds/ur3.world).
 
-__EXAMPLE: Pick and place execution__
+**EXAMPLE: Pick and place execution**
 
 The source code for the pick and place video (UR3 + Robotiq 2f-85) shown [above](https://www.youtube.com/watch?v=t4L4VAfgqZw) and instructions about how different robot programs are generated (including object grasping) can be found in the ros2_SimRealRobotControl GitHub repository [here](https://github.com/IFRA-Cranfield/ros2_SimRealRobotControl/tree/humble/ros2srrc_execution).
 
@@ -144,7 +143,7 @@ The source code for the pick and place video (UR3 + Robotiq 2f-85) shown [above]
   <br />
   Created on behalf of the IFRA Group at Cranfield University, United Kingdom
   <br />
-  E-mail: IFRA@cranfield.ac.uk 
+  E-mail: IFRA@cranfield.ac.uk
   <br />
   <br />
   Licensed under the Apache-2.0 License.
@@ -203,6 +202,6 @@ The source code for the pick and place video (UR3 + Robotiq 2f-85) shown [above]
   <br />
   LinkedIn: https://www.linkedin.com/in/phil-webb-64283223/
   <br />
-  Profile: https://www.cranfield.ac.uk/people/professor-phil-webb-746415 
+  Profile: https://www.cranfield.ac.uk/people/professor-phil-webb-746415
   <br />
 </p>

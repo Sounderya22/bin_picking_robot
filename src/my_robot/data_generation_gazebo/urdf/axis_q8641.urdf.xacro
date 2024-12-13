@@ -165,9 +165,6 @@
     <xacro:sensor_axis_q8641_gazebo/>
   </xacro:macro>
 
-
-
-
   <xacro:macro name="sensor_axis_q8641_gazebo">
     <gazebo reference="${prefix}_frame_link">
       <sensor type="camera" name="${prefix}_sensor">
@@ -201,5 +198,4 @@
       </sensor>
     </gazebo>
   </xacro:macro>
-
 </robot>

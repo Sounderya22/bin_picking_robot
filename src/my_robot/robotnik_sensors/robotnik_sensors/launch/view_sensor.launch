@@ -13,12 +13,11 @@
 
   <group if="$(arg simulate_sensor)">
     <include file="$(find robotnik_sensors)/launch/gazebo.launch">
-      <arg name="robot_id" value="$(arg robot_id)"/> 
+      <arg name="robot_id" value="$(arg robot_id)"/>
     </include>
   </group>
-  
+
   <!-- Show in Rviz   -->
   <node name="rviz" pkg="rviz" type="rviz"/>
 
 </launch>
-

@@ -6,21 +6,18 @@ from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 
 
-
 def generate_launch_description():
-    launch_file_dir = os.path.join(get_package_share_directory('office_gazebo'), 'launch')
+    launch_file_dir = os.path.join(get_package_share_directory("office_gazebo"), "launch")
 
     gazebo_start = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            os.path.join(launch_file_dir, 'start_world_warehouse.launch.py')
+            os.path.join(launch_file_dir, "start_world_warehouse.launch.py")
         )
     )
-
 
     ld = LaunchDescription()
 
     # Add the commands to the launch description
     ld.add_action(gazebo_start)
-
 
     return ld

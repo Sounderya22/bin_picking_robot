@@ -21,14 +21,14 @@
     <arg name="headless" value="$(arg headless)"/>
     <arg name="gui" value="$(arg gui)"/>
   </include>
-  
+
   <!-- Spawn model into gazebo -->
   <node name="urdf_spawner_robot_model" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
     args="
-    -x $(arg x_init_pose) 
-    -y $(arg y_init_pose) 
-    -z $(arg z_init_pose) 
-    -urdf -param robot_description 
+    -x $(arg x_init_pose)
+    -y $(arg y_init_pose)
+    -z $(arg z_init_pose)
+    -urdf -param robot_description
     -model $(arg robot_id)
     -unpause
     " />

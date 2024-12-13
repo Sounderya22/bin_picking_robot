@@ -141,11 +141,11 @@ add_library (my_model SHARED
 
 # Specify where the associated include files are
 target_include_directories (my_model PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>  
-    $<INSTALL_INTERFACE:include> 
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>
     PUBLIC ${OpenCV_INCLUDE_DIRS}
     PUBLIC ${rclcpp_INCLUDE_DIRS}
-    ) 
+    )
 
 # Specify where the associated libraries are
 # Any dependent libraires needed to build this target.
@@ -163,7 +163,7 @@ target_link_libraries(my_model
 # Install the header files
 install(DIRECTORY
   ${PROJECT_SOURCE_DIR}/include/
-  DESTINATION include 
+  DESTINATION include
   )
 
 ###################################
@@ -191,18 +191,18 @@ install(DIRECTORY
 
 # let the compiler search for headers in the include folder
 include_directories(include)
- 
+
 # define a library target called my_value_converter_library
- 
+
 # this line to exports the library
 ament_export_targets(my_model HAS_LIBRARY_TARGET)
- 
+
 # install the include/my_cpp_library directory to the install/include/my_cpp_library
 install(
   DIRECTORY include/
   DESTINATION include
 )
- 
+
 install(
   TARGETS my_model
   EXPORT my_model

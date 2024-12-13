@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <sdf version='1.4'>
-  <model name="reflective_tag">      
+  <model name="reflective_tag">
       <static>1</static>
       <link name='link'>
         <inertial>
@@ -57,7 +57,7 @@
         </velocity_decay>
         <self_collide>0</self_collide>
         <kinematic>0</kinematic>
-        <gravity>1</gravity>        
-      </link>   
+        <gravity>1</gravity>
+      </link>
   </model>
 </sdf>

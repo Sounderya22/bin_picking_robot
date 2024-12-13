@@ -17,11 +17,11 @@ name: Run Unit Test and Upload Coverage Report
 on:
   # Triggered whenever push to main
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
   # Triggered whenever a pull request is created on main
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
     types: [opened]
 
   # Allow manual trigger
@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-22.04
     defaults:
       run:
-        shell: bash       # specify bash for use with docker container
+        shell: bash # specify bash for use with docker container
     container:
       image: osrf/ros:humble-desktop # use ROS Humble from docker hub repository
 
@@ -71,6 +71,4 @@ jobs:
           fail_ci_if_error: true # optional (default = false)
           verbose: true # optional (default = false)
           disable_search: true # optional (default = false)
-          plugin: none         # optional (xcode, gcov, pycoverage)
-
-
+          plugin: none # optional (xcode, gcov, pycoverage)

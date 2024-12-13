@@ -232,7 +232,7 @@
 	<laser_retro>8000</laser_retro>
       </collision>
     </link>
-    
+
     <link name='link_reflector_2'>
       <pose frame='link_0'>0.1 0.355 0.21 0 -0 0</pose>
       <gravity>0</gravity>
@@ -290,7 +290,7 @@
 	<laser_retro>8000</laser_retro>
       </collision>
     </link>
-    
+
     <link name='link_reflector_4'>
       <pose frame='link_0'>-0.1 0.355 0.21 0 -0 0</pose>
       <gravity>0</gravity>

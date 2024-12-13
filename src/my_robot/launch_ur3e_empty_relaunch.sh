@@ -11,5 +11,3 @@ export GAZEBO_MODEL_PATH=$(arm_ws)/robotnik_sensors:${GAZEBO_MODEL_PATH}
 
 timeout 45 ros2 launch office_gazebo empty_ur3e.launch.xml
 ros2 launch office_gazebo empty_ur3e.launch.xml
-
-

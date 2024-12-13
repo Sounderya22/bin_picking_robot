@@ -1,13 +1,9 @@
 {
   "name": "ros2-examples-x86-dev",
-  "dockerComposeFile": [
-    "docker-compose.yaml"
-  ],
+  "dockerComposeFile": ["docker-compose.yaml"],
   // Only start this service
   "service": "ros2-examples-x86-dev",
-  "runServices": [
-    "ros2-examples-x86-dev"
-  ],
+  "runServices": ["ros2-examples-x86-dev"],
   // Stop container if VS Code is shut down
   "shutdownAction": "stopCompose",
   // Configure the container's IDE
