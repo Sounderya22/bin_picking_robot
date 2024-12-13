@@ -11,5 +11,8 @@ install(DIRECTORY config launch rviz srdf
 # Install Python modules
 ament_python_install_package(${PROJECT_NAME})
 ament_python_install_module(${PROJECT_NAME}/launch_common.py)
-
+install(PROGRAMS      # want to make the file executable (ie. chmod a+x)
+  scripts/run_me_for_fun.bash
+  scripts/generate_coverage_report.bash
+  DESTINATION lib/${PROJECT_NAME})
 ament_package()

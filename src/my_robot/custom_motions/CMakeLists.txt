@@ -122,4 +122,10 @@ install(DIRECTORY
     DESTINATION share/${PROJECT_NAME}
 )
 
+## Install some arbitrary executables
+install(PROGRAMS      # want to make the file executable (ie. chmod a+x)
+  scripts/run_me_for_fun.bash
+  scripts/generate_coverage_report.bash
+  DESTINATION lib/${PROJECT_NAME})
+
 ament_package()

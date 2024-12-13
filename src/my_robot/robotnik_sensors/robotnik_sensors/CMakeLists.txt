@@ -15,9 +15,17 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-ament_package()
+
+## Install some arbitrary executables
+install(PROGRAMS      # want to make the file executable (ie. chmod a+x)
+  scripts/run_me_for_fun.bash
+  scripts/generate_coverage_report.bash
+  DESTINATION lib/${PROJECT_NAME})
+
 
 install(
   DIRECTORY meshes urdf launch
   DESTINATION share/${PROJECT_NAME}/
 )
+
+ament_package()
